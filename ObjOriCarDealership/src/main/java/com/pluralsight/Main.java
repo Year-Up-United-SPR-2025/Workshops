@@ -1,13 +1,75 @@
 package com.pluralsight;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        Dealership myDealership = new Dealership();
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
 
-        // Call the GivenCars() method on the dealership object
-        // This will initialize the inventory and print it
-        myDealership.GivenCars();
+        while (running) {
+            System.out.println("\nVehicle Inventory Menu:");
+            System.out.println("1 - Find vehicles within a price range");
+            System.out.println("2 - Find vehicles by make / model");
+            System.out.println("3 - Find vehicles by year range");
+            System.out.println("4 - Find vehicles by color");
+            System.out.println("5 - Find vehicles by mileage range");
+            System.out.println("6 - Find vehicles by type (car, truck, SUV, van)");
+            System.out.println("7 - List ALL vehicles");
+            System.out.println("8 - Add a vehicle");
+            System.out.println("9 - Remove a vehicle");
+            System.out.println("99 - Quit");
 
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume newline
 
+            switch (choice) {
+                case 1:
+                    System.out.println("Finding vehicles within a price range: \n");
+                    // Calls method findByPriceRange();
+                    break;
+                case 2:
+                    System.out.println("Finding vehicles by make/model \n");
+                    // Calls method findByMakeModel();
+                    break;
+                case 3:
+                    System.out.println("Finding vehicles by year range \n");
+                    // Calls method findByYearRange();
+                    break;
+                case 4:
+                    System.out.println("Finding vehicles by color \n");
+                    // Calls method findByColor();
+                    break;
+                case 5:
+                    System.out.println("Finding vehicles by mileage range \n");
+                    // Calls method findByMileageRange();
+                    break;
+                case 6:
+                    System.out.println("Finding vehicles by type \n");
+                    // Calls method findByType();
+                    break;
+                case 7:
+                    System.out.println("Listing all vehicles \n");
+                    // Calls method listAllVehicles();
+                    break;
+                case 8:
+                    System.out.println("Adding a new vehicle \n");
+                    // Calls method addVehicle();
+                    break;
+                case 9:
+                    System.out.println("Removing a vehicle \n");
+                    // Calls method removeVehicle();
+                    break;
+                case 99:
+                    System.out.println("Exiting program.");
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+
+        scanner.close();
     }
 }
