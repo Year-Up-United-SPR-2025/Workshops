@@ -62,7 +62,7 @@ public class Main {
                     // Calls method removeVehicle();
                     break;
                 case 99:
-                    System.out.println("Exiting program.");
+                    System.out.println("GoodBye and Good Luck with your Car.");
                     running = false;
                     break;
                 default:
