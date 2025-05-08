@@ -7,5 +7,6 @@ public class Main {
         // Call the GivenCars() method on the dealership object
         // This will initialize the inventory and print it
         myDealership.GivenCars();
+
     }
 }
