@@ -18,11 +18,12 @@ public class Main {
             System.out.println("7 - List ALL vehicles");
             System.out.println("8 - Add a vehicle");
             System.out.println("9 - Remove a vehicle");
+            System.out.println("10 - Satisfied With Your Vehicle (Y/N)");
             System.out.println("99 - Quit");
 
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -60,6 +61,10 @@ public class Main {
                 case 9:
                     System.out.println("Removing a vehicle \n");
                     // Calls method removeVehicle();
+                    break;
+                case 10:
+                    System.out.println("Are You Satisfied With Your Vehicle \n");
+                    //Calls method satisfiedVehicle();
                     break;
                 case 99:
                     System.out.println("GoodBye and Good Luck with your Car.");
