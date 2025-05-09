@@ -1,29 +1,31 @@
 
 # Car Dealearship Using Object-Oriented Programming WS4
-This project uses Object Oriented Programming to simulate a Car Dealearship using Getters and Setters, Constructors, File Read and Write, and a few error catchers to simulate a Car Dealearship.
+This project uses Object Oriented Programming to simulate a Car Dealearship using Getters and Setters, Constructors, File Read and Write, and a few error catchers to simulate a Car Dealearship. And using IntelliJ to make this project 
 
 
 ## Roadmap
 
-- 1st I looked through the documatation to see what was needed in each class and be very careful to follow the instructuions excatly 
+- 1st, I looked through the documentation to see what was needed in each class, and I was very careful to follow the instructions exactly 
 
-- 2nd once done looking over the documatation made all the classes need to make a functining app. 
+- 2nd, once I was done looking over the documentation made all the classes need to make a functioning app. 
 
 - 3rd Look at every class and add the needed code to complete this project.
--I started with Vechicle beause that was teh eaisest all it needed was setters and getters of ints, strings and doubles.
+-I started with Vehicle because that was the easiest, all it needed was setters and getters of ints, strings and doubles.
 
--Next I went to my Dealership class whaich asked me to use an ArrayList to get the Vechicles Price, Model, Year, Color, Mileage, and Type. Also within the Dealership class I needed to have added teh ability to add or remove vehicles to the list and List all teh vechicles present at the time.
+-Next I went to my Dealership class whaich asked me to use an ArrayList to get the Vechicles Price, Model, Year, Color, Mileage, and Type. Also within the Dealership class I needed to add the ability to add or remove vehicles to the list and List all teh vechicles present at the time.
 
 -Then I went into my DealershipFileManager class to make use of the BufferReader class and PrintWriter Class to simulate reading and writing from the file
 
--Next I went into my UserInterace class which was the hardest to do. This class was just asking the user for what car they were looking for by year, color make, and model. Aslo adding and removie vechiles to the Dealership list. As an added bonus added a if they weren't satififed they can call a simulated number.
+-Next I went into my UserInterace class which was the hardest to do. This class was asking the user for what car they were looking for by year, color make, and model. Aslo adding and removing vehicles to the Dealership list. As a bonus, if they weren't satisfied they can call a simulated number.
 
--Last jsut adding the UserInterface ui to the Main to make the code work in the console. 
+-Last just adding the UserInterface ui to the Main to make the code work in the console. 
 
 
 
 
 ## Screenshots of Code I found Interesting 
 
+![Interesting code ](https://github.com/user-attachments/assets/026f9e6d-ac23-42d6-896e-364deae05570)
 
 
+I had to learn how to use this because of the way that the inventory.csv file had all of the items; it wasn't formatting correctly, so I had to make an error handler to see if any info needs to be corrected for the user to correct it in the file.
