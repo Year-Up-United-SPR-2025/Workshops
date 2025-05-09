@@ -1,6 +1,7 @@
 package com.pluralsight;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Dealership {
     private String name;
@@ -13,6 +14,16 @@ public class Dealership {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.inventory = new ArrayList<>();
+    }
+
+    public List<Vehicle> getVehiclesByPrice(double min, double max) {
+        List<Vehicle> result = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.getPrice() >= min && v.getPrice() <= max) {
+                result.add(v);
+            }
+        }
+        return result;
     }
 }
 
