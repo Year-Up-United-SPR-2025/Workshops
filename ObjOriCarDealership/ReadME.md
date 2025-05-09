@@ -25,8 +25,7 @@ This project uses Object Oriented Programming to simulate a Car Dealearship usin
 
 ## Screenshots of Code I found Interesting 
 
-![Interesting code ](https://github.com/user-attachments/assets/026f9e6d-ac23-42d6-896e-364deae05570)
-
+![INTERRESTING CODE ](https://github.com/user-attachments/assets/51db396c-cc17-42ec-96af-8f9a6f3c6d01)
 
 I had to learn how to use this because of the way that the inventory.csv file had all of the items; it wasn't formatting correctly, so I had to make an error handler to see if any info needed to be corrected for the user to correct it in the file.
 
