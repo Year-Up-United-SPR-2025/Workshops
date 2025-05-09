@@ -21,6 +21,13 @@ public class Vehicle {
         this.price = price;
     }
 
+    @Override
+    public String toString() {
+        return year + " " + make + " " + model + " | " +
+                vehicleType + " | " + color + " | " +
+                odometer + " miles | $" + String.format("%.2f", price);
+    }
+
     public int getVin() {
         return vin;
     }

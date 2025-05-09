@@ -13,36 +13,52 @@ public class DealershipFileManager {
     public Dealership getDealership() {
         Dealership dealership = null;
 
-        try (Scanner scanner = new Scanner(new File(FILE_NAME))) {
-            // Read dealership info
-            String name = scanner.nextLine();
-            String address = scanner.nextLine();
-            String phone = scanner.nextLine();
+        try (BufferedReader reader = new BufferedReader(new FileReader("inventory.csv"))) {
+            String line;
 
-            dealership = new Dealership(name, address, phone);
-
-            // Read vehicle data line by line
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] parts = line.split("\\|");
-
-                int year = Integer.parseInt(parts[0]);
-                String make = parts[1];
-                String model = parts[2];
-                String type = parts[3];
-                String color = parts[4];
-                int mileage = Integer.parseInt(parts[5]);
-                double price = Double.parseDouble(parts[6]);
-
-                Vehicle vehicle = new Vehicle(year, make, model, type, color, mileage, price);
-                dealership.addVehicle(vehicle);
+            // Read first line as dealership info
+            if ((line = reader.readLine()) != null) {
+                String[] header = line.split("\\|");
+                if (header.length == 3) {
+                    String name = header[0];
+                    String address = header[1];
+                    String phone = header[2];
+                    dealership = new Dealership(name, address, phone);
+                } else {
+                    System.out.println("The line entered needs to be corrected: " + line);
+                    return new Dealership("Unknown", "Unknown", "Unknown");
+                }
             }
 
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + FILE_NAME);
+            // Now read vehicle lines
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("\\|");
+
+                if (parts.length != 7) {
+                    System.out.println("Skipping wrong line: " + line);
+                    continue;
+                }
+
+                try {
+                    int year = Integer.parseInt(parts[0]);
+                    String make = parts[1];
+                    String model = parts[2];
+                    String type = parts[3];
+                    String color = parts[4];
+                    int mileage = Integer.parseInt(parts[5]);
+                    double price = Double.parseDouble(parts[6]);
+
+                    Vehicle vehicle = new Vehicle(year, make, model, type, color, mileage, price);
+                    dealership.addVehicle(vehicle);
+                } catch (NumberFormatException e) {
+                    System.out.println("Skipping line due to number format error: " + line);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading inventory.csv: " + e.getMessage());
         }
 
-        return dealership;
+        return dealership != null ? dealership : new Dealership("Unknown", "Unknown", "Unknown");
     }
 
     /**
