@@ -154,7 +154,13 @@ public class UserInterface {
         double price = getDouble("Price: ");
 
         Vehicle vehicle = new Vehicle(year, make, model, type, color, mileage, price);
+
+        // Add the vehicle to the dealership
         dealership.addVehicle(vehicle);
+
+        // Print vehicle details in the desired format
+        System.out.printf("%d|%s|%s|%s|%s|%d|%.2f%n", year, make, model, type, color, mileage, price);
+
         System.out.println("Vehicle added successfully!");
     }
 

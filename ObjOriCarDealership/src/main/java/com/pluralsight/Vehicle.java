@@ -10,9 +10,9 @@ public class Vehicle {
     private int odometer;
     private double price;
 
-    public Vehicle(int vin, String make, String model, String vehicleType, String color, int odometer, double price) {
+    public Vehicle(int year, String make, String model, String vehicleType, String color, int odometer, double price) {
         this.vin = vin;
-        this.year = year;
+        this.year = year; // this was causing an issue due to me not spelling it right
         this.make = make;
         this.model = model;
         this.vehicleType = vehicleType;
@@ -23,9 +23,7 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return year + " " + make + " " + model + " | " +
-                vehicleType + " | " + color + " | " +
-                odometer + " miles | $" + String.format("%.2f", price);
+        return String.format("%d|%s|%s|%s|%s|%d|%.2f", year, make, model, vehicleType, color, odometer, price);
     }
 
     public int getVin() {
