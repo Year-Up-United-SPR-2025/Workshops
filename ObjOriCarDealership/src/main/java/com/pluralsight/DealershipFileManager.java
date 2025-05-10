@@ -35,7 +35,7 @@ public class DealershipFileManager {
                 String[] parts = line.split("\\|");
 
                 if (parts.length != 7) {
-                    System.out.println("Skipping wrong line: " + line);
+                    System.out.println("Skipping wrong formatted line: " + line);
                     continue;
                 }
 
@@ -75,8 +75,8 @@ public class DealershipFileManager {
             for (Vehicle v : dealership.getAllVehicles()) {
                 writer.printf("%d|%s|%s|%s|%s|%d|%.2f%n",
                         v.getYear(), v.getMake(), v.getModel(),
-                        v.getMake(), v.getColor(),
-                        v.getMake(), v.getPrice());
+                        v.getVehicleType(), v.getColor(),
+                        v.getOdometer(), v.getPrice());
             }
 
         } catch (IOException e) {
