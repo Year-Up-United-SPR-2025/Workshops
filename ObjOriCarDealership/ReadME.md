@@ -1,6 +1,6 @@
 
 # Car Dealearship Using Object-Oriented Programming WS4
-This project uses Object Oriented Programming to simulate a Car Dealearship using Getters and Setters, Constructors, File Read and Write, and a few error catchers to simulate a Car Dealearship. And using IntelliJ to make this project 
+This project uses Object Oriented Programming to simulate a Car Dealership using Getters and Setters, Constructors, File Read and Write, and a few error catchers to simulate a Car Dealership. And using IntelliJ to make this project 
 
 
 ## Roadmap
@@ -12,9 +12,9 @@ This project uses Object Oriented Programming to simulate a Car Dealearship usin
 - 3rd Look at every class and add the needed code to complete this project.
 -I started with Vehicle because that was the easiest, all it needed was setters and getters of ints, strings and doubles.
 
--Next I went to my Dealership class whaich asked me to use an ArrayList to get the Vechicles Price, Model, Year, Color, Mileage, and Type. Also within the Dealership class, I needed to add the ability to add or remove vehicles to the list and List all the vehicles present at the time.
+-Next I went to my Dealership class which asked me to use an ArrayList to get the Vehicles Price, Model, Year, Color, Mileage, and Type. Also within the Dealership class, I needed to add the ability to add or remove vehicles to the list and List all the vehicles present at the time.
 
--Then I went into my DealershipFileManager class to make use of the BufferReader class andthe  PrintWriter Class to simulate reading and writing from the file
+-Then I went into my DealershipFileManager class to make use of the BufferReader class and the  PrintWriter Class to simulate reading and writing from the file
 
 -Next I went into my UserInterface class which was the hardest to do. This class was asking the user for what car they were looking for by year, color make, and model. Aslo adding and removing vehicles to the Dealership list. As a bonus, if they weren't satisfied they can call a simulated number.
 
@@ -28,7 +28,7 @@ This project uses Object Oriented Programming to simulate a Car Dealearship usin
 
 ![carbon (1)](https://github.com/user-attachments/assets/96b6583b-9412-4923-b8ba-57c7695804e1)
 
-I had to learn how to use this because the inventory.csv file contained all of the items; it wasn't formatting correctly, so I had to make an error handler to see if any information needed to be corrected for the user to correct it in the file.
+I had to learn how to use this because the inventory.csv file contained all the items; it wasn't formatting correctly, so I had to make an error handler to see if any information needed to be corrected for the user to correct it in the file.
 
 ## Special Thanks 
 
