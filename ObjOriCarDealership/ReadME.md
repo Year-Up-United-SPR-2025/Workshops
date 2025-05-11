@@ -33,4 +33,4 @@ I had to learn how to use this because the inventory.csv file contained all the 
 
 ## Special Thanks 
 
-Thank you to one of my teammates who helped me find a good Readme creator called https://readme.so/ to help make this readme easier, using https://carbon.now.sh/ to create the screenshot above, and to my professor who caught little issues like my name conventions and little mistakes that I missed when making this project.
+Thank you to one of my teammates who helped me find a good Readme creator called https://readme.so/ to help make this readme template, and using https://carbon.now.sh/ to create the screenshot above, and to my professor who caught little issues like my name conventions and little mistakes that I missed when making this project.
