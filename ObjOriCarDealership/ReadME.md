@@ -27,7 +27,7 @@ Last, just adding the UserInterface ui to the Main to make the code work in the 
 ## Screenshots of Code I found Interesting 
 
 
-![carbon (1)](https://github.com/user-attachments/assets/96b6583b-9412-4923-b8ba-57c7695804e1)
+![IC2.png](Screenshots/IC2.png)
 
 I had to learn how to use this because the inventory.csv file contained all the items; it wasn't formatting correctly, so I had to make an error handler to see if any information needed to be corrected for the user to correct it in the file. Another issue I have come across was that if there is any wrong format for the inventory, it will get erased, so when you see the errors, you need to put the info or it will be gone.
 
