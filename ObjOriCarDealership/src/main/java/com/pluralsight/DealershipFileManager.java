@@ -30,7 +30,7 @@ public class DealershipFileManager {
 
                 if (parts.length != 7) {
                     //depending on the theme your using the colors will be hard to make out
-                    System.out.println(ColorCodes.RED_BACKGROUND + ColorCodes.BOLD + ColorCodes.BLACK + "Skipping wrongly formatted line: " + vehicleLine + ColorCodes.RESET);
+                    System.out.println(ColorCodes.RED_BACKGROUND + ColorCodes.BOLD + ColorCodes.BLACK + "Skipping wrong formatted line: " + vehicleLine + ColorCodes.RESET);
                     continue;
                 }
 
