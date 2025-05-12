@@ -3,7 +3,7 @@ package com.pluralsight;
 import java.awt.Color;
 
 public class JavaColorClassColors {
-    // colors that don't use rgb
+    // Foreground colors
     public static final Color black = Color.BLACK;
     public static final Color blue = Color.BLUE;
     public static final Color cyan = Color.CYAN;
@@ -18,7 +18,7 @@ public class JavaColorClassColors {
     public static final Color white = Color.WHITE;
     public static final Color yellow = Color.YELLOW;
 
-    // colors that use rgb
+    // Foreground custom colors
     public static final Color skyBlue = new Color(135, 206, 235);
     public static final Color forestGreen = new Color(34, 139, 34);
     public static final Color deepPurple = new Color(75, 0, 130);
@@ -54,4 +54,31 @@ public class JavaColorClassColors {
     public static final Color thistle = new Color(216, 191, 216);
     public static final Color darkOliveGreen = new Color(85, 107, 47);
     public static final Color lightSalmon = new Color(255, 160, 122);
+
+    // Background colors (duplicated or slightly modified for UI use)
+    public static final Color backgroundBlack = black;
+    public static final Color backgroundBlue = new Color(0, 0, 80);
+    public static final Color backgroundCyan = new Color(0, 139, 139);
+    public static final Color backgroundDarkGray = darkGray;
+    public static final Color backgroundGray = gray;
+    public static final Color backgroundGreen = new Color(0, 100, 0);
+    public static final Color backgroundLightGray = lightGray;
+    public static final Color backgroundMagenta = new Color(139, 0, 139);
+    public static final Color backgroundOrange = new Color(255, 140, 0);
+    public static final Color backgroundPink = new Color(255, 182, 193);
+    public static final Color backgroundRed = new Color(139, 0, 0);
+    public static final Color backgroundWhite = new Color(250, 250, 250);
+    public static final Color backgroundYellow = new Color(255, 255, 153);
+
+    // Custom background colors
+    public static final Color backgroundSkyBlue = new Color(176, 224, 230);
+    public static final Color backgroundForestGreen = new Color(34, 139, 34);
+    public static final Color backgroundDeepPurple = new Color(48, 25, 52);
+    public static final Color backgroundGold = new Color(218, 165, 32);
+    public static final Color backgroundSalmon = new Color(255, 160, 122);
+    public static final Color backgroundTurquoise = new Color(175, 238, 238);
+    public static final Color backgroundMidnightBlue = midnightBlue;
+    public static final Color backgroundTomato = new Color(255, 99, 71);
+    public static final Color backgroundViolet = new Color(230, 230, 250);
+    public static final Color backgroundChocolate = new Color(210, 105, 30);
 }
