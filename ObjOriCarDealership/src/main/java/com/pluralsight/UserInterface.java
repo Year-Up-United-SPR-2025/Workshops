@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class UserInterface {
 
-    private Dealership dealership;
-    private Scanner scanner;
+    private final Dealership dealership;
+    private final Scanner scanner;
 
     public UserInterface() {
         DealershipFileManager fileManager = new DealershipFileManager();
@@ -69,17 +69,17 @@ public class UserInterface {
     // Print menu to the console
     private void printMenu() {
         System.out.println("\n" + ColorCodes.CYAN + ColorCodes.BOLD + "Vehicle Inventory Menu:" + ColorCodes.RESET);
-        System.out.println(ColorCodes.GREEN +  "1 - Find vehicles within a price range" + ColorCodes.RESET);
-        System.out.println(ColorCodes.GREEN + "2 - Find vehicles by make / model" + ColorCodes.RESET);
-        System.out.println(ColorCodes.GREEN + "3 - Find vehicles by year range" + ColorCodes.RESET);
-        System.out.println(ColorCodes.GREEN + "4 - Find vehicles by color" + ColorCodes.RESET);
-        System.out.println(ColorCodes.GREEN + "5 - Find vehicles by mileage range" + ColorCodes.RESET);
-        System.out.println(ColorCodes.GREEN + "6 - Find vehicles by type (car, truck, SUV, van)" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_GREEN +  "1 - Find vehicles within a price range" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_GREEN + "2 - Find vehicles by make / model" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_GREEN + "3 - Find vehicles by year range" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_GREEN + "4 - Find vehicles by color" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_GREEN + "5 - Find vehicles by mileage range" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_GREEN + "6 - Find vehicles by type (car, truck, SUV, van)" + ColorCodes.RESET);
         System.out.println(ColorCodes.BRIGHT_YELLOW + "7 - List ALL vehicles" + ColorCodes.RESET);
-        System.out.println(ColorCodes.BLUE + "8 - Add a vehicle" + ColorCodes.RESET);
-        System.out.println(ColorCodes.RED + "9 - Remove a vehicle" + ColorCodes.RESET);
-        System.out.println(ColorCodes.PURPLE + "10 - Satisfied With Your Vehicle (Y/N)" + ColorCodes.RESET);
-        System.out.println(ColorCodes.RED + "99 - Quit" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_BLUE + "8 - Add a vehicle" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_RED + "9 - Remove a vehicle" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_PURPLE + "10 - Satisfied With Your Vehicle (Y/N)" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_WHITE + "99 - Quit" + ColorCodes.RESET);
     }
 
     // Request and display vehicles by price
