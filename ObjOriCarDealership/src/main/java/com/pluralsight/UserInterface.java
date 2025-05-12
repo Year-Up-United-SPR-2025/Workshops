@@ -194,8 +194,8 @@ public class UserInterface {
         if (answer.equalsIgnoreCase("Y")) {
             System.out.println("We’re glad to hear that! Thank you!");
         } else if (answer.equalsIgnoreCase("N")) {
-            System.out.println("We’re sorry to hear that. Please contact customer service.");
-            System.out.println("Call 648-555-2222");
+            System.out.println("We’re sorry to hear that. Please contact customer service:");
+            System.out.println("585-555-2222");
         } else {
             System.out.println("Invalid input. Please enter Y or N.");
         }
