@@ -29,6 +29,7 @@ public class ColorCodes
     public static final String PURPLE_BACKGROUND = "\u001B[45m";
     public static final String CYAN_BACKGROUND = "\u001B[46m";
     public static final String WHITE_BACKGROUND = "\u001B[47m";
+
     //more background colors
     public static final String BRIGHT_BLACK_BACKGROUND = "\u001B[100m";
     public static final String BRIGHT_RED_BACKGROUND = "\u001B[101m";
