@@ -29,7 +29,7 @@ public class DealershipFileManager {
                 String[] parts = vehicleLine.split("\\|");
 
                 if (parts.length != 7) {
-                    System.out.println("Skipping wrongly formatted line: " + vehicleLine);
+                    System.out.println(ColorCodes.RED_BACKGROUND + ColorCodes.BOLD + ColorCodes.BLACK + "Skipping wrongly formatted line: " + vehicleLine + ColorCodes.RESET);
                     continue;
                 }
 
@@ -45,7 +45,7 @@ public class DealershipFileManager {
                     Vehicle vehicle = new Vehicle(year, make, model, type, color, mileage, price);
                     dealership.addVehicle(vehicle);
                 } catch (NumberFormatException e) {
-                    System.out.println("Skipping line due to number format error: " + vehicleLine);
+                    System.out.println(ColorCodes.BLUE_BACKGROUND + ColorCodes.BOLD + ColorCodes.BLACK + "Skipping line due to number format error: " + vehicleLine + ColorCodes.RESET);
                 }
             }
 
