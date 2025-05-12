@@ -191,9 +191,9 @@ public class UserInterface {
         System.out.print("Are you satisfied with your vehicle? (Y/N): ");
         String answer = scanner.nextLine().trim().toUpperCase();
 
-        if (answer.equals("Y")) {
+        if (answer.equalsIgnoreCase("Y")) {
             System.out.println("We’re glad to hear that! Thank you!");
-        } else if (answer.equals("N")) {
+        } else if (answer.equalsIgnoreCase("N")) {
             System.out.println("We’re sorry to hear that. Please contact customer service.");
             System.out.println("Call 648-555-2222");
         } else {
