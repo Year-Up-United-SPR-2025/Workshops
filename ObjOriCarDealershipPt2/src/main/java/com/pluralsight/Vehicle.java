@@ -23,7 +23,8 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return String.format("%d|%s|%s|%s|%s|%d|%.2f", year, make, model, vehicleType, color, odometer, price);
+        return String.format("%d | %s | %s | %s | %s | %,d | $%.2f",
+                year, make, model, vehicleType, color, odometer, price);
     }
 
     public int getVin() {

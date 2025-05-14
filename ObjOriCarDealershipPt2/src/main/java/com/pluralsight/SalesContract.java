@@ -11,8 +11,8 @@ public class SalesContract extends Contract {
 
 
      //Constructor for a SalesContract
-    public SalesContract(String date, String customerName, String customerEmail, Vehicle vehicleSold, boolean finance) {
-        super(date, customerName, customerEmail, vehicleSold); // Call constructor in Contract
+    public SalesContract(String sale, String customerName, String customerEmail, Vehicle vehicleSold, boolean finance) {
+        super(sale, customerName, customerEmail, vehicleSold); // Call constructor in Contract
         this.finance = finance;
     }
 

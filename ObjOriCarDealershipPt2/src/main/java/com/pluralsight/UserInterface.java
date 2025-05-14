@@ -1,8 +1,8 @@
 package com.pluralsight;
 
+import java.io.File;
 import java.util.List;
 import java.util.Scanner;
-import java.awt.Color;
 
 public class UserInterface {
 
@@ -51,6 +51,8 @@ public class UserInterface {
                     processRemoveVehicleRequest();
                     break;
                 case 10:
+                    processViewContracts();
+                case 11:
                     processSatisfactionSurvey();
                     break;
                 case 99:
@@ -70,7 +72,7 @@ public class UserInterface {
     // Print menu to the console
     private void printMenu() {
         System.out.println("\n" + ColorCodes.CYAN + ColorCodes.BOLD + "Vehicle Inventory Menu:" + ColorCodes.RESET);
-        System.out.println(ColorCodes.BRIGHT_GREEN +  "1 - Find vehicles within a price range" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_GREEN + "1 - Find vehicles within a price range" + ColorCodes.RESET);
         System.out.println(ColorCodes.BRIGHT_GREEN + "2 - Find vehicles by make / model" + ColorCodes.RESET);
         System.out.println(ColorCodes.BRIGHT_GREEN + "3 - Find vehicles by year range" + ColorCodes.RESET);
         System.out.println(ColorCodes.BRIGHT_GREEN + "4 - Find vehicles by color" + ColorCodes.RESET);
@@ -79,7 +81,8 @@ public class UserInterface {
         System.out.println(ColorCodes.BRIGHT_YELLOW + "7 - List ALL vehicles" + ColorCodes.RESET);
         System.out.println(ColorCodes.BRIGHT_BLUE + "8 - Add a vehicle" + ColorCodes.RESET);
         System.out.println(ColorCodes.BRIGHT_RED + "9 - Remove a vehicle" + ColorCodes.RESET);
-        System.out.println(ColorCodes.BRIGHT_PURPLE + "10 - Satisfied With Your Vehicle (Y/N)" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_CYAN + "10 - View all contracts" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_PURPLE + "11 - Satisfied With Your Vehicle (Y/N)" + ColorCodes.RESET);
         System.out.println(ColorCodes.BRIGHT_WHITE + "99 - Quit" + ColorCodes.RESET);
     }
 
@@ -187,6 +190,75 @@ public class UserInterface {
         }
     }
 
+    // Displays all contracts from the contracts.csv file
+    private void processViewContracts() {
+        // Print a header
+        System.out.println(ColorCodes.BOLD + "Contracts:" + ColorCodes.RESET);
+
+        try (Scanner fileScanner = new Scanner(new File("Contract.csv"))) {
+            // Read the file line-by-line
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine(); // Read the next line
+                String[] parts = line.split("\\|");   // Split the line by '|'
+
+                // If it's a SALE contract
+                if (parts[0].equalsIgnoreCase("SALE")) {
+                    // Format and print the sale contract details
+                    System.out.printf(
+                            "\nSALE | Sale: %s | Customer: %s | Email: %s\n" +
+                                    "Vehicle: %s %s %s (%s, %s, %,d mi, $%.2f)\n" +
+                                    "Tax: $%.2f | Fees: $%.2f + $%.2f | Total: $%.2f | Finance: %s | Monthly: $%.2f\n",
+                            parts[1],  // Sale
+                            parts[2],  // Customer Name
+                            parts[3],  // Customer Email
+                            parts[5],  // Vehicle Year
+                            parts[6],  // Make
+                            parts[7],  // Model
+                            parts[8],  // Type
+                            parts[9],  // Color
+                            Integer.parseInt(parts[10]), // Mileage
+                            Double.parseDouble(parts[11]), // Price
+                            Double.parseDouble(parts[12]), // Sales Tax
+                            Double.parseDouble(parts[13]), // Recording Fee
+                            Double.parseDouble(parts[14]), // Processing Fee
+                            Double.parseDouble(parts[15]), // Total Price
+                            parts[16],  // Financed (YES/NO)
+                            Double.parseDouble(parts[17])  // Monthly Payment
+                    );
+                }
+                // If it's a LEASE contract
+                else if (parts[0].equalsIgnoreCase("LEASE")) {
+                    // Format and print the lease contract details
+                    System.out.printf(
+                            "\nLEASE | Sale: %s | Customer: %s | Email: %s\n" +
+                                    "Vehicle: %s %s %s (%s, %s, %,d mi, $%.2f)\n" +
+                                    "Expected Value: $%.2f | Lease Fee: $%.2f | Total: $%.2f | Monthly: $%.2f\n",
+                            parts[1],  // Sale
+                            parts[2],  // Customer Name
+                            parts[3],  // Customer Email
+                            parts[5],  // Vehicle Year
+                            parts[6],  // Make
+                            parts[7],  // Model
+                            parts[8],  // Type
+                            parts[9],  // Color
+                            Integer.parseInt(parts[10]), // Mileage
+                            Double.parseDouble(parts[11]), // Price
+                            Double.parseDouble(parts[12]), // Expected Ending Value
+                            Double.parseDouble(parts[13]), // Lease Fee
+                            Double.parseDouble(parts[14]), // Total Price
+                            Double.parseDouble(parts[15])  // Monthly Payment
+                    );
+                } else {
+                    // If the contract type is not recognized
+                    System.out.println("Unknown contract type in file.");
+                }
+            }
+        } catch (Exception e) {
+            // If file not found or there's an error, print it
+            System.out.println("Error reading contracts file: " + e.getMessage());
+        }
+    }
+
     // Ask the user if they're satisfied
     private void processSatisfactionSurvey() {
         System.out.print("Are you satisfied with your vehicle? (Y/N): ");
@@ -207,6 +279,9 @@ public class UserInterface {
         if (vehicles.isEmpty()) {
             System.out.println("No vehicles found.");
         } else {
+            //now its under each field
+            System.out.println("Year | Make | Model | Type | Color | Mileage | Price");
+            System.out.println("----------------------------------------------------------");
             for (Vehicle v : vehicles) {
                 System.out.println(v);
             }
