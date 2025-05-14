@@ -22,6 +22,25 @@ Next, I went into my UserInterface class, which was the hardest to do. This clas
 Last, just adding the UserInterface ui to the Main to make the code work in the console. 
 
 
+# Screenshots of How my Code Works
+
+![HomeScreen.png](Screenshots/HomeScreen.png)
+
+As you can see you see my home screen you can choose any option 1 - 10, and 99 to execute any of the options listed.
+
+![ListofAllVechicles.png](Screenshots/ListofAllVechicles.png)
+
+If you push 7 you can see all the listed cars, make / model, color, the odometer and the price for each car in the inventory.csv file.
+
+![ErrorScreen.png](Screenshots/ErrorScreen.png)
+
+If you enter any other number other than 1 - 10 and 99 you will get Invalid Choice. Please Try Again
+
+![ErrorScreen2.png](Screenshots/ErrorScreen2.png)
+
+An error I decided to highlight is that sometimes due to human error people will enter data wrong in a file and I highlighted it in the file just in case any got it wrong they can change it using:
+![Screenshot 2025-05-13 203159.png](Screenshots/Screenshot%202025-05-13%20203159.png).     
+However, if you use this it will erase the wrong files and just put in the one you changed or just adding a new vehicle. 
 
 
 ## Screenshots of Code I found Interesting 
