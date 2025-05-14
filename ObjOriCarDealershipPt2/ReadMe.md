@@ -34,7 +34,21 @@ This took me a while to figure out because the read file class needs quite a few
 
 ![HomeScreen.png](Screenshots/HomeScreen.png)
 
-As you can see 
+As you can see now my home screen has an added filed of viewing the contacts that the customer has.
+
+![Printout of Contracts.png](Screenshots/Printout%20of%20Contracts.png)
+
+This is the list you see when you press 10  to view all contracts.
+
+![Error of wrong format.png](Screenshots/Error%20of%20wrong%20format.png)
+
+This is an error if you put the csv file name wrong, and you need to stop the app to fix it in the code.
+
+# Interesting code
+
+![Interesting code pt2.png](Screenshots/Interesting%20code%20pt2.png)
+
+This code was interesting because it came from the SalesContact file and change some variables to make the LeaseContact work.
 
 ## Special Thanks 
 Thank you to one of my teammates who helped me find a good Readme creator called https://readme.so/ to help make this readme template, and using https://carbon.now.sh/ to create the screenshot above, and to my professor who caught little issues like my name conventions and little mistakes that I missed when making this project.
