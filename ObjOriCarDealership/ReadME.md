@@ -42,6 +42,8 @@ An error I decided to highlight is that sometimes due to human error people will
 ![Screenshot 2025-05-13 203159.png](Screenshots/Screenshot%202025-05-13%20203159.png).     
 However, if you use this it will erase the wrong files and just put in the one you changed or just adding a new vehicle. 
 
+Another Thing you might have noticed is that I have colored and highlighted when you run the main you can see how my code works I used a class called ColorCodes that have all the colors that I used to make my Dealership look interesting and show if there are issues you can change them and make all the options colorful as well.
+
 
 ## Screenshots of Code I found Interesting 
 
