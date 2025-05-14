@@ -81,7 +81,7 @@ public class UserInterface {
         System.out.println(ColorCodes.BRIGHT_YELLOW + "7 - List ALL vehicles" + ColorCodes.RESET);
         System.out.println(ColorCodes.BRIGHT_BLUE + "8 - Add a vehicle" + ColorCodes.RESET);
         System.out.println(ColorCodes.BRIGHT_RED + "9 - Remove a vehicle" + ColorCodes.RESET);
-        System.out.println(ColorCodes.BRIGHT_CYAN + "10 - View all contracts" + ColorCodes.RESET);
+        System.out.println(ColorCodes.CYAN + "10 - View all contracts" + ColorCodes.RESET);
         System.out.println(ColorCodes.BRIGHT_PURPLE + "11 - Satisfied With Your Vehicle (Y/N)" + ColorCodes.RESET);
         System.out.println(ColorCodes.BRIGHT_WHITE + "99 - Quit" + ColorCodes.RESET);
     }
