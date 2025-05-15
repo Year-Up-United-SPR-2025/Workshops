@@ -17,7 +17,7 @@ Next, I went to my Dealership class, which asked me to use an array list to get 
 
 Then I went into my DealershipFileManager class to make use of the BufferReader class and the  PrintWriter Class to simulate reading and writing from the file
 
-Next, I went into my UserInterface class, which was the hardest to do. This class asked the user what car they were looking for by year, color, make, and model, as well as adding and removing vehicles from the Dealership list. As a bonus, if they weren't satisfied, they could call a simulated number.
+Next, I went into my UserInterface class, which was the hardest to do. This class asked the user what car they were looking for by year, color, make, and model, and it added and removed vehicles from the dealership list. As a bonus, they could call a simulated number if they weren't satisfied.
 
 Last, just adding the UserInterface ui to the Main to make the code work in the console. 
 
@@ -54,4 +54,4 @@ I had to learn how to use this because the inventory.csv file contained all the 
 
 ## Special Thanks 
 
-Thank you to one of my teammates who helped me find a good Readme creator called https://readme.so/ to help make this readme template, and using https://carbon.now.sh/ to create the screenshot above, and to my professor who caught little issues like my name conventions and little mistakes that I missed when making this project.
+Thank you to one of my teammates who helped me find a good Readme creator called https://readme.so/ to help make this readme template, and using https://carbon.now.sh/ to create the screenshots above, and to my professor who caught little issues like my name conventions and little mistakes that I missed when making this project.
