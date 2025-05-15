@@ -30,7 +30,7 @@ This took me a while to figure out because the read file class needs quite a few
 6. 🛞 Lastly went back into my UserInterface class and added  a new field named processViewContracts() so that you can see the contracts each person has. 
  
 
-# Screenshots 📷
+# Screenshots of How my Code Works 📷
 
 ![HomeScreen.png](Screenshots/HomeScreen.png)
 
@@ -49,6 +49,10 @@ This is an error if you put the csv file name wrong, and you need to stop the ap
 ![Interesting code pt2.png](Screenshots/Interesting%20code%20pt2.png)
 
 This code was interesting because it came from the SalesContact file and change some variables to make the LeaseContact work.
+
+An error I decided to highlight is that sometimes due to human error people will enter data wrong in a file and I highlighted it in the file just in case any got it wrong they can change it using:
+![Screenshot 2025-05-13 203159.png](Screenshots/Screenshot%202025-05-13%20203159.png).     
+However, if you use this it will erase the wrong files and just put in the one you changed or just adding a new vehicle. Another issue is that it will erase with quit also.
 
 ## Special Thanks 👋🏾
 Thank you to one of my teammates who helped me find a good Readme creator called https://readme.so/ to help make this readme template, and using https://carbon.now.sh/ to create the screenshots above, and to my professor who caught little issues like my name conventions and little mistakes that I missed when making this project.
