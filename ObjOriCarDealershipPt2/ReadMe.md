@@ -50,6 +50,7 @@ This is an error if you put the csv file name wrong, and you need to stop the ap
 
 This code was interesting because it came from the SalesContact file and change some variables to make the LeaseContact work.
 
+# An Issue with code  😵‍💫
 An error I decided to highlight is that sometimes due to human error people will enter data wrong in a file and I highlighted it in the file just in case any got it wrong they can change it using:
 ![Screenshot 2025-05-13 203159.png](Screenshots/Screenshot%202025-05-13%20203159.png).     
 However, if you use this it will erase the wrong files and just put in the one you changed or just adding a new vehicle. Another issue is that it will erase with quit also.
