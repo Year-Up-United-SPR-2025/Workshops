@@ -51,4 +51,4 @@ This is an error if you put the csv file name wrong, and you need to stop the ap
 This code was interesting because it came from the SalesContact file and change some variables to make the LeaseContact work.
 
 ## Special Thanks 👋🏾
-Thank you to one of my teammates who helped me find a good Readme creator called https://readme.so/ to help make this readme template, and using https://carbon.now.sh/ to create the screenshot above, and to my professor who caught little issues like my name conventions and little mistakes that I missed when making this project.
+Thank you to one of my teammates who helped me find a good Readme creator called https://readme.so/ to help make this readme template, and using https://carbon.now.sh/ to create the screenshots above, and to my professor who caught little issues like my name conventions and little mistakes that I missed when making this project.
