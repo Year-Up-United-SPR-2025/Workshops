@@ -278,13 +278,18 @@ public class UserInterface {
     private void displayVehicles(List<Vehicle> vehicles) {
         if (vehicles.isEmpty()) {
             System.out.println("No vehicles found.");
-        } else {
-            //now its under each field
-            System.out.println("Year | Make | Model | Type | Color | Mileage | Price");
-            System.out.println("----------------------------------------------------------");
-            for (Vehicle v : vehicles) {
-                System.out.println(v);
-            }
+            return;
+        }
+
+        // Print header
+        System.out.printf("%-6s | %-10s | %-10s | %-7s | %-7s | %-8s | %-10s%n",
+                "Year", "Make", "Model", "Type", "Color", "Mileage", "Price");
+        System.out.println("----------------------------------------------------------------------");
+
+        // Print each vehicle
+        for (Vehicle v : vehicles) {
+            System.out.printf("%-6d | %-10s | %-10s | %-7s | %-7s | %-8d | $%-10.2f%n",
+                    v.getYear(), v.getMake(), v.getModel(), v.getVehicleType(), v.getColor(), v.getOdometer(), v.getPrice());
         }
     }
 
