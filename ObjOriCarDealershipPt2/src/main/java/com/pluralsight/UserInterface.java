@@ -281,14 +281,18 @@ public class UserInterface {
             return;
         }
 
-        // Print header
-        System.out.printf("%-6s | %-10s | %-10s | %-7s | %-7s | %-8s | %-10s%n",
+        // Table Header
+        System.out.printf(ColorCodes.BOLD + ColorCodes.BRIGHT_CYAN +
+                        "%-6s %-10s %-12s %-10s %-10s %-10s %-10s%n" + ColorCodes.RESET,
                 "Year", "Make", "Model", "Type", "Color", "Mileage", "Price");
-        System.out.println("----------------------------------------------------------------------");
 
-        // Print each vehicle
+        // Divider
+        System.out.println(ColorCodes.BRIGHT_WHITE + "-------------------------------------------------------------------------" + ColorCodes.RESET);
+
+        // Table Rows
         for (Vehicle v : vehicles) {
-            System.out.printf("%-6d | %-10s | %-10s | %-7s | %-7s | %-8d | $%-10.2f%n",
+            System.out.printf(ColorCodes.BRIGHT_GREEN + ColorCodes.BOLD +
+                            "%-6d %-10s %-12s %-10s %-10s %-10d $%-10.2f%n" + ColorCodes.RESET,
                     v.getYear(), v.getMake(), v.getModel(), v.getVehicleType(), v.getColor(), v.getOdometer(), v.getPrice());
         }
     }
