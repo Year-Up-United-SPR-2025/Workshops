@@ -8,11 +8,11 @@ public class Main {
         boolean continueCalculating = true;
 
         while (continueCalculating) {
-            System.out.println("\nChoose calculator:");
-            System.out.println("1. Mortgage Calculator");
-            System.out.println("2. Annuity Calculator");
-            System.out.println("3. Future Value Calculator");
-            System.out.print("Enter choice (1-3): ");
+            System.out.println(ColorCodes.BRIGHT_PURPLE +"\nChoose calculator:" + ColorCodes.BOLD + ColorCodes.RESET);
+            System.out.println(ColorCodes.BRIGHT_GREEN + "1. Mortgage Calculator" + ColorCodes.BOLD + ColorCodes.RESET);
+            System.out.println(ColorCodes.BRIGHT_BLUE + "2. Annuity (Present Value) Calculator" + ColorCodes.BOLD + ColorCodes.RESET);
+            System.out.println(ColorCodes.BRIGHT_RED + "3. Future Value Calculator" + ColorCodes.BOLD + ColorCodes.RESET);
+            System.out.print(ColorCodes.BOLD +"Enter choice (1-3): " + ColorCodes.RESET);
             int choice = scanner.nextInt();
 
             switch (choice) {
