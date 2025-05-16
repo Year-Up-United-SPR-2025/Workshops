@@ -6,7 +6,6 @@ public class Main {
 
     private static Scanner scanner = new Scanner(System.in);
     private static Book[] library = getPopulatedLibrary();
-    private static Book[] books;
 
     public static void main(String[] args) {
         ShowScreenHome();
@@ -16,10 +15,11 @@ public class Main {
 
         String homeScreenPrompt = "Welcome to the library\n" +
                 "Please select an option from the following\n" +
-                " 1- Show Available Books\n  " +
-                "  2 - Show Checked Out Books\n  " +
-                "  0- Exit App\n  " +
-                "(1,2,0):";
+                ColorCodes.BRIGHT_BLUE + " 1- Show Available Books\n  "
+                + ColorCodes.RESET +
+                ColorCodes.RED + " 2 - Show Checked Out Books\n  " + ColorCodes.RESET +
+                ColorCodes.BRIGHT_CYAN + " 0- Exit App\n  " + ColorCodes.RESET +
+                ColorCodes.BOLD + "(1,2,0):" + ColorCodes.RESET;
 
         int option;
 
@@ -34,7 +34,7 @@ public class Main {
             } else if (option == 0) {
                 System.out.println("Exiting the library have a nice day");
             } else {
-                System.out.println("Not a valid option please try again");
+                System.out.println("\nNot a valid option please try again\n");
             }
         } while (option != 0);
         System.exit(0);
