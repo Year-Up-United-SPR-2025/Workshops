@@ -1,1 +1,2 @@
-where my workshops exersizes end up 
+# Welcome 
+These workshops serve as the foundation for my larger projects. Each one contributes to the bigger picture when it's time to work on my capstone projects—Java-based applications that build on the skills I’ve developed. Ultimately, this is part of my app development journey during the Learning and Development phase at Year Up United. These experiences are helping me prepare to create a fully functional app by the end of the program.
