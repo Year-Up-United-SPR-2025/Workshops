@@ -26,3 +26,9 @@ Next is the Present Val screen where you can Enter monthly payout, annual intere
 ![Future Val Cal Output.png](Screenshots/Future%20Val%20Cal%20Output.png)
 
 And lastly the future value screen where you see the Enter deposit amount, annual interest rate and number of years to get the Future Value and the Total Interest Earned
+
+# Interesting Code 👀
+
+![Interesting code FC.png](Screenshots/Interesting%20code%20FC.png)
+
+Making this was interesting using the scanner class and to interact with the user and use their inputs to intact with my code. And if there are any issues I will give out an invalid input if using any other number than 1-3  
