@@ -1,14 +1,17 @@
 package com.pluralsight;
 
 public class Product {
+    private String sku;
     private String productName;
     private double productPrice;
     private String Department;
 
-    public Product(String productName, double productPrice, String department) {
-        this.productName = productName;
-        this.productPrice = productPrice;
-        Department = department;
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 
     public String getProductName() {
@@ -33,5 +36,14 @@ public class Product {
 
     public void setDepartment(String department) {
         Department = department;
+    }
+
+    public Product(String sku, String productName, double productPrice, String department) {
+        this.sku = sku;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        Department = department;
+
+
     }
 }
