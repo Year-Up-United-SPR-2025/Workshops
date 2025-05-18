@@ -17,3 +17,20 @@ generated fields to create a constructors and the getter and setters that are ne
 7. Lastly added color to the code outputs when you are using the code to make my Online Store App look more eye catching to the users.
 
 # Screenshots 📸
+![HomeScreen.png](Screenshots/HomeScreen.png)
+
+This is start of my Home Screen as you can se you see the Name of the store a greeting and three options and by press 1 - 3 you can interact with the terminal. However, if you select any number besides 1 - 3 you get this message:
+
+![Invalid Option.png](Screenshots/Invalid%20Option.png)
+
+---
+
+![ProductsPage.png](Screenshots/ProductsPage.png)
+
+Once you select 1 you can see the list of products by SKU, Name, Price, and which Department they are in.
+
+*** 
+
+![Search1.png](Screenshots/Search1.png)
+
+Once you find a product you can search it again to make sure it there like in the screenshot.

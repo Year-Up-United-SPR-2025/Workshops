@@ -15,7 +15,7 @@ public class UserInterface {
             System.out.println(ColorCodes.BRIGHT_PURPLE + "\n1. Display Products" + ColorCodes.RESET);
             System.out.println(ColorCodes.BRIGHT_PURPLE + "2. Display Cart" + ColorCodes.RESET);
             System.out.println(ColorCodes.BRIGHT_PURPLE + "3. Exit" + ColorCodes.RESET);
-            System.out.print("\nChoose an option: ");
+            System.out.print(ColorCodes.BOLD + "\nChoose an option: " +  ColorCodes.RESET);
             String choice = scanner.nextLine();
 
             switch (choice) {
