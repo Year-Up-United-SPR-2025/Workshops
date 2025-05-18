@@ -34,3 +34,33 @@ Once you select 1 you can see the list of products by SKU, Name, Price, and whic
 ![Search1.png](Screenshots/Search1.png)
 
 Once you find a product you can search it again to make sure it there like in the screenshot.
+
+---
+![Search2.png](Screenshots/Search2.png)
+
+Once you find the product select 2 and add it to your cart
+
+---
+
+![Search3.png](Screenshots/Search3.png)
+
+After that go back to home and see your cart and how much everything costs 
+
+---
+
+![RemoveFromCart.png](Screenshots/RemoveFromCart.png)
+
+If you don't want the item in your cart you can remove by pressing 1 and displaying that its gone and the amount of how much your cart is worth
+
+---
+![CheckOut1.png](Screenshots/CheckOut1.png)
+
+Now at the checkout page you can check out, or you can and go back to the home or just chek out like this:
+
+![CheckOut2.png](Screenshots/CheckOut2.png)
+
+# Code I Found Interesting 
+
+![Interesting Code WS3.png](Screenshots/Interesting%20Code%20WS3.png)
+
+One of the most interesting parts is the readProducts() method in File_Reader_and_Writer, especially the formatted color-coded console output, which enhances readability and user experience. Another key line is cart.add(line); in addToCart(), showing a simple but effective way to track purchases using in-memory storage. Lastly, the calculateCartTotal() method is crucial, as it computes the total from stored product strings—simple for real-time feedback.

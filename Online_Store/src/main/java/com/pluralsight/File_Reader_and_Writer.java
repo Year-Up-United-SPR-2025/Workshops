@@ -35,6 +35,7 @@ public class File_Reader_and_Writer {
             String line;
 
             // Print Header with color
+            // This line uses ANSI color codes and formatted output to make terminal UI clean and user-friendly.
             System.out.printf(ColorCodes.BRIGHT_CYAN + "%-10s | %-35s | %-13s | %-15s\n" + ColorCodes.RESET,
                     "SKU", "Name", "Price", "Department");
             System.out.println("-----------------------------------------------------------------------------------------");
@@ -66,6 +67,7 @@ public class File_Reader_and_Writer {
                 String[] parts = line.split("\\|");
 
                 // If SKU matches, add to cart
+                // It shows a concise way to find and store product entries in memory, simulating real-world cart logic.
                 if (parts.length == 4 && parts[0].equalsIgnoreCase(sku)) {
                     cart.add(line);
                     System.out.println("Added to cart: " + parts[1]);

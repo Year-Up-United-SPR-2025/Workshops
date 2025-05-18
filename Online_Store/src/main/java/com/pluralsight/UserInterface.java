@@ -11,11 +11,11 @@ public class UserInterface {
     public static void showHomeScreen() {
         while (true) {
             System.out.println(ColorCodes.CYAN + ColorCodes.BOLD + "\n=== Welcome to Coders Electronics ===" + ColorCodes.RESET);
-            System.out.println(ColorCodes.BLUE + ColorCodes.BOLD + "\n=== How May We Serve You Today===" + ColorCodes.RESET);
+            System.out.println(ColorCodes.BLUE + ColorCodes.BOLD + "\n=== How May We Serve You Today ===" + ColorCodes.RESET);
             System.out.println(ColorCodes.BRIGHT_PURPLE + "\n1. Display Products" + ColorCodes.RESET);
             System.out.println(ColorCodes.BRIGHT_PURPLE + "2. Display Cart" + ColorCodes.RESET);
             System.out.println(ColorCodes.BRIGHT_PURPLE + "3. Exit" + ColorCodes.RESET);
-            System.out.print(ColorCodes.BOLD + "\nChoose an option: " +  ColorCodes.RESET);
+            System.out.print(ColorCodes.BOLD + "\nChoose an option: " + ColorCodes.RESET);
             String choice = scanner.nextLine();
 
             switch (choice) {
@@ -106,8 +106,17 @@ public class UserInterface {
                     File_Reader_and_Writer.removeFromCart(skuToRemove);
                 }
                 case "2" -> {
-                    System.out.println("Checkout complete. Thank you!");
-                    System.exit(0);
+                    System.out.print("Would you like to purchase anything else? (yes/no): ");
+                    String moreShopping = scanner.nextLine().trim().toLowerCase();
+                    if (moreShopping.equals("yes")) {
+                        return; // Return to cart screen, user can go back and shop more
+                    } else if (moreShopping.equals("no")) {
+                        System.out.println("Checkout complete. Thank you!");
+                        // You can place receipt saving logic here
+                        System.exit(0);
+                    } else {
+                        System.out.println(ColorCodes.RED + "Invalid input. Returning to cart." + ColorCodes.RESET);
+                    }
                 }
                 case "3" -> {
                     return;
@@ -123,6 +132,7 @@ public class UserInterface {
             for (String item : File_Reader_and_Writer.cart) {
                 String[] parts = item.split("\\|");
                 if (parts.length == 4) {
+                    // This line converts the price strings into numbers to compute the checkout total, demonstrating effective parsing.
                     total += Double.parseDouble(parts[2]);
                 }
             }
