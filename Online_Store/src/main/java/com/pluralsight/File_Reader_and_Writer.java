@@ -23,7 +23,7 @@ public class File_Reader_and_Writer {
             writer.write(addRecord + "\n");
             System.out.println("Product saved.");
         } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
+            System.out.println(ColorCodes.RED + ColorCodes.BOLD + "Error writing to file: " + e.getMessage() + ColorCodes.RESET );
         }
     }
 
@@ -34,20 +34,24 @@ public class File_Reader_and_Writer {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
             String line;
 
-            // Print Header
-            System.out.printf("%-10s | %-35s | %-13s | %-15s\n", "SKU", "Name", "Price", "Department");
+            // Print Header with color
+            System.out.printf(ColorCodes.BRIGHT_CYAN + "%-10s | %-35s | %-13s | %-15s\n" + ColorCodes.RESET,
+                    "SKU", "Name", "Price", "Department");
             System.out.println("-----------------------------------------------------------------------------------------");
 
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("\\|");
                 if (parts.length == 4) {
-                    // Print product details with alignment
-                    System.out.printf("%-10s | %-35s | %-13s | %-15s\n",
+                    System.out.printf(
+                            ColorCodes.YELLOW + "%-10s" + ColorCodes.RESET + " | " +
+                                    ColorCodes.GREEN + "%-35s" + ColorCodes.RESET + " | " +
+                                    ColorCodes.BRIGHT_YELLOW + "%-13s" + ColorCodes.RESET + " | " +
+                                    ColorCodes.PURPLE + "%-15s" + ColorCodes.RESET + "\n",
                             parts[0], parts[1], parts[2], parts[3]);
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error reading from file: " + e.getMessage());
+            System.out.println(ColorCodes.RED + ColorCodes.BOLD +"Error reading from file: " + e.getMessage() + ColorCodes.RESET);
         }
     }
 
@@ -68,7 +72,7 @@ public class File_Reader_and_Writer {
                     return;
                 }
             }
-            System.out.println("Product with SKU " + sku + " not found.");
+            System.out.println(ColorCodes.RED + ColorCodes.BOLD +"Product with SKU " + sku + " not found." + ColorCodes.RESET);
         } catch (IOException e) {
             System.out.println("Error reading product: " + e.getMessage());
         }
@@ -95,18 +99,23 @@ public class File_Reader_and_Writer {
      */
     public static void viewCart() {
         if (cart.isEmpty()) {
-            System.out.println("Your cart is empty.");
+            System.out.println(ColorCodes.RED + "Your cart is empty." + ColorCodes.RESET);
             return;
         }
 
-        System.out.println("Your Cart:");
-        System.out.printf("%-10s | %-35s | %-13s | %-15s\n", "SKU", "Name", "Price", "Department");
+        System.out.println(ColorCodes.BRIGHT_CYAN + "Your Cart:" + ColorCodes.RESET);
+        System.out.printf(ColorCodes.BRIGHT_CYAN + "%-10s | %-35s | %-13s | %-15s\n" + ColorCodes.RESET,
+                "SKU", "Name", "Price", "Department");
         System.out.println("-----------------------------------------------------------------------------------------");
 
         for (String item : cart) {
             String[] parts = item.split("\\|");
             if (parts.length == 4) {
-                System.out.printf("%-10s | %-35s | %-13s | %-15s\n",
+                System.out.printf(
+                        ColorCodes.YELLOW + "%-10s" + ColorCodes.RESET + " | " +
+                                ColorCodes.GREEN + "%-35s" + ColorCodes.RESET + " | " +
+                                ColorCodes.BRIGHT_YELLOW + "%-13s" + ColorCodes.RESET + " | " +
+                                ColorCodes.PURPLE + "%-15s" + ColorCodes.RESET + "\n",
                         parts[0], parts[1], parts[2], parts[3]);
             }
         }

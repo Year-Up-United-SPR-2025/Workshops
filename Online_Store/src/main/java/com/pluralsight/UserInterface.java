@@ -24,7 +24,7 @@ public class UserInterface {
                     System.out.println("Thank you for shopping!");
                     return;
                 }
-                default -> System.out.println("Invalid choice. Try again.");
+                default -> System.out.println(ColorCodes.RED + ColorCodes.BOLD +"Invalid choice. Try again." + ColorCodes.RESET);
             }
         }
     }
@@ -73,11 +73,11 @@ public class UserInterface {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error reading file: " + e.getMessage());
+            System.out.println(ColorCodes.RED + ColorCodes.BOLD + "Error reading file: " + e.getMessage() + ColorCodes.RESET);
         }
 
         if (!found) {
-            System.out.println("Product not found.");
+            System.out.println(ColorCodes.RED + ColorCodes.BOLD +"Product not found." + ColorCodes.RESET);
         }
     }
 
@@ -86,7 +86,7 @@ public class UserInterface {
             System.out.println("\n=== Your Cart ===");
             File_Reader_and_Writer.viewCart();
             double total = calculateCartTotal();
-            System.out.printf("Total: $%.2f\n", total);
+            System.out.printf(ColorCodes.RED +"Total: $%.2f\n" + ColorCodes.RESET, total);
 
             System.out.println("\nOptions:");
             System.out.println("1. Remove Product from Cart");
@@ -106,7 +106,7 @@ public class UserInterface {
                     System.exit(0);
                 }
                 case "3" -> { return; }
-                default -> System.out.println("Invalid choice.");
+                default -> System.out.println(ColorCodes.RED + ColorCodes.BOLD +"Invalid choice." + ColorCodes.RESET);
             }
         }
     }
@@ -121,7 +121,7 @@ public class UserInterface {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error calculating total.");
+            System.out.println(ColorCodes.RED + ColorCodes.BOLD +"Error calculating total." + ColorCodes.RESET);
         }
         return total;
     }
