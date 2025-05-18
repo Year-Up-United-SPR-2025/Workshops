@@ -10,11 +10,12 @@ public class UserInterface {
     // Home screen
     public static void showHomeScreen() {
         while (true) {
-            System.out.println("\n=== Welcome to the Store ===");
-            System.out.println("1. Display Products");
-            System.out.println("2. Display Cart");
-            System.out.println("3. Exit");
-            System.out.print("Choose an option: ");
+            System.out.println("\n=== Welcome to Coders Electronics ===");
+            System.out.println("\n=== How may we Serve you Today===");
+            System.out.println(ColorCodes.BRIGHT_PURPLE + "\n1. Display Products" + ColorCodes.RESET);
+            System.out.println(ColorCodes.BRIGHT_PURPLE + "2. Display Cart" + ColorCodes.RESET);
+            System.out.println(ColorCodes.BRIGHT_PURPLE + "3. Exit" + ColorCodes.RESET);
+            System.out.print("\nChoose an option: ");
             String choice = scanner.nextLine();
 
             switch (choice) {
@@ -24,7 +25,8 @@ public class UserInterface {
                     System.out.println("Thank you for shopping!");
                     return;
                 }
-                default -> System.out.println(ColorCodes.RED + ColorCodes.BOLD +"Invalid choice. Try again." + ColorCodes.RESET);
+                default ->
+                        System.out.println(ColorCodes.RED + ColorCodes.BOLD + "Invalid choice. Try again." + ColorCodes.RESET);
             }
         }
     }
@@ -52,7 +54,9 @@ public class UserInterface {
                     String skuToAdd = scanner.nextLine();
                     File_Reader_and_Writer.addToCart(skuToAdd);
                 }
-                case "3" -> { return; }
+                case "3" -> {
+                    return;
+                }
                 default -> System.out.println("Invalid option.");
             }
         }
@@ -77,7 +81,7 @@ public class UserInterface {
         }
 
         if (!found) {
-            System.out.println(ColorCodes.RED + ColorCodes.BOLD +"Product not found." + ColorCodes.RESET);
+            System.out.println(ColorCodes.RED + ColorCodes.BOLD + "Product not found." + ColorCodes.RESET);
         }
     }
 
@@ -86,7 +90,7 @@ public class UserInterface {
             System.out.println("\n=== Your Cart ===");
             File_Reader_and_Writer.viewCart();
             double total = calculateCartTotal();
-            System.out.printf(ColorCodes.RED +"Total: $%.2f\n" + ColorCodes.RESET, total);
+            System.out.printf(ColorCodes.RED + "Total: $%.2f\n" + ColorCodes.RESET, total);
 
             System.out.println("\nOptions:");
             System.out.println("1. Remove Product from Cart");
@@ -105,8 +109,10 @@ public class UserInterface {
                     System.out.println("Checkout complete. Thank you!");
                     System.exit(0);
                 }
-                case "3" -> { return; }
-                default -> System.out.println(ColorCodes.RED + ColorCodes.BOLD +"Invalid choice." + ColorCodes.RESET);
+                case "3" -> {
+                    return;
+                }
+                default -> System.out.println(ColorCodes.RED + ColorCodes.BOLD + "Invalid choice." + ColorCodes.RESET);
             }
         }
     }
@@ -121,7 +127,7 @@ public class UserInterface {
                 }
             }
         } catch (Exception e) {
-            System.out.println(ColorCodes.RED + ColorCodes.BOLD +"Error calculating total." + ColorCodes.RESET);
+            System.out.println(ColorCodes.RED + ColorCodes.BOLD + "Error calculating total." + ColorCodes.RESET);
         }
         return total;
     }
