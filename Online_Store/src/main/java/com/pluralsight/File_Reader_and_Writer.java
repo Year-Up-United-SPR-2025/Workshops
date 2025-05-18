@@ -87,11 +87,11 @@ public class File_Reader_and_Writer {
 
             if (parts.length == 4 && parts[0].equalsIgnoreCase(sku)) {
                 cart.remove(i);
-                System.out.println("Removed from cart: " + parts[1]);
+                System.out.println(ColorCodes.BRIGHT_PURPLE + ColorCodes.BOLD + "Removed from cart: " + parts[1] + ColorCodes.RESET);
                 return;
             }
         }
-        System.out.println("Product with SKU " + sku + " not found in cart.");
+        System.out.println(ColorCodes.RED + ColorCodes.BOLD + "Product with SKU " + sku + " not found in cart." + ColorCodes.RESET);
     }
 
     /**
