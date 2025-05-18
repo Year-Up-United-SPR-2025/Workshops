@@ -10,8 +10,8 @@ public class UserInterface {
     // Home screen
     public static void showHomeScreen() {
         while (true) {
-            System.out.println("\n=== Welcome to Coders Electronics ===");
-            System.out.println("\n=== How may we Serve you Today===");
+            System.out.println(ColorCodes.CYAN + ColorCodes.BOLD + "\n=== Welcome to Coders Electronics ===" + ColorCodes.RESET);
+            System.out.println(ColorCodes.BLUE + ColorCodes.BOLD + "\n=== How May We Serve You Today===" + ColorCodes.RESET);
             System.out.println(ColorCodes.BRIGHT_PURPLE + "\n1. Display Products" + ColorCodes.RESET);
             System.out.println(ColorCodes.BRIGHT_PURPLE + "2. Display Cart" + ColorCodes.RESET);
             System.out.println(ColorCodes.BRIGHT_PURPLE + "3. Exit" + ColorCodes.RESET);
