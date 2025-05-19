@@ -1,1 +1,0 @@
-This is the version that all of us created together the version I made is here: [https://github.com/Year-Up-United-SPR-2025/neighborhood-library](https://github.com/Year-Up-United-SPR-2025/Workshops/tree/main/neighborhood-library)
