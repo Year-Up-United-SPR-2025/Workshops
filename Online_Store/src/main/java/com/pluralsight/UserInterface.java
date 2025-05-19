@@ -106,11 +106,11 @@ public class UserInterface {
                     File_Reader_and_Writer.removeFromCart(skuToRemove);
                 }
                 case "2" -> {
-                    System.out.print("Would you like to purchase anything else? (yes/no): ");
+                    System.out.print(ColorCodes.YELLOW + ColorCodes.BOLD +"Would you like to purchase anything else? (y)es or (n)o): " + ColorCodes.RESET);
                     String moreShopping = scanner.nextLine().trim().toLowerCase();
-                    if (moreShopping.equals("yes")) {
+                    if (moreShopping.equals("y")) {
                         return; // Return to cart screen, user can go back and shop more
-                    } else if (moreShopping.equals("no")) {
+                    } else if (moreShopping.equals("n")) {
                         System.out.println("Checkout complete. Thank you!");
                         // You can place receipt saving logic here
                         System.exit(0);
