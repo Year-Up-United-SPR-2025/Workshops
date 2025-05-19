@@ -36,7 +36,7 @@ public class UserInterface {
             System.out.println(ColorCodes.BRIGHT_BLUE +"\n=== Product List ===" + ColorCodes.RESET);
             File_Reader_and_Writer.readProducts();
 
-            System.out.println("\nOptions:");
+            System.out.println("\nOptions:\n");
             System.out.println(ColorCodes.BRIGHT_BLUE + "1. Search Products by SKU" + ColorCodes.RESET);
             System.out.println(ColorCodes.BRIGHT_BLUE + "2. Add Product to Cart" + ColorCodes.RESET);
             System.out.println(ColorCodes.BRIGHT_BLUE + "3. Go Back" + ColorCodes.RESET);
