@@ -22,7 +22,7 @@ public class UserInterface {
                 case "1" -> showProductScreen();
                 case "2" -> showCartScreen();
                 case "3" -> {
-                    System.out.println("Thank you for shopping!");
+                    System.out.println(ColorCodes.BRIGHT_WHITE + ColorCodes.BOLD +"Thank you for shopping!" + ColorCodes.RESET);
                     return;
                 }
                 default ->
@@ -33,13 +33,13 @@ public class UserInterface {
 
     public static void showProductScreen() {
         while (true) {
-            System.out.println("\n=== Product List ===");
+            System.out.println(ColorCodes.BRIGHT_BLUE +"\n=== Product List ===" + ColorCodes.RESET);
             File_Reader_and_Writer.readProducts();
 
             System.out.println("\nOptions:");
-            System.out.println("1. Search Products by SKU");
-            System.out.println("2. Add Product to Cart");
-            System.out.println("3. Go Back");
+            System.out.println(ColorCodes.BRIGHT_BLUE + "1. Search Products by SKU" + ColorCodes.RESET);
+            System.out.println(ColorCodes.BRIGHT_BLUE + "2. Add Product to Cart" + ColorCodes.RESET);
+            System.out.println(ColorCodes.BRIGHT_BLUE + "3. Go Back" + ColorCodes.RESET);
             System.out.print("Choose an option: ");
             String option = scanner.nextLine();
 
@@ -101,7 +101,7 @@ public class UserInterface {
 
             switch (choice) {
                 case "1" -> {
-                    System.out.print("Enter SKU to remove: ");
+                    System.out.print(ColorCodes.BRIGHT_PURPLE + ColorCodes. BOLD + "Enter SKU to remove: " + ColorCodes.RESET);
                     String skuToRemove = scanner.nextLine();
                     File_Reader_and_Writer.removeFromCart(skuToRemove);
                 }
