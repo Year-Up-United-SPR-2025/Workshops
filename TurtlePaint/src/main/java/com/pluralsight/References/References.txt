@@ -1,0 +1,8 @@
+https://docs.oracle.com/javase/8/docs/api/javax/swing/JComponent.html
+https://docs.oracle.com/javase/8/docs/api/javax/swing/JPanel.html
+https://www.geeksforgeeks.org/java-swing-jpanel-with-examples/
+https://www.geeksforgeeks.org/java-jcomponent/
+https://docs.oracle.com/javase/tutorial/2d/text/examples/ArrowKeySample.java
+https://stackoverflow.com/questions/4522090/how-can-i-detect-arrow-keys-in-java
+https://www.google.com/search?q=paint+component+java&rlz=1C1GCEA_enUS1101US1101&oq=paintComponient&gs_lcrp=EgZjaHJvbWUqCQgBEAAYDRiABDIGCAAQRRg5MgkIARAAGA0YgAQyCQgCEAAYDRiABDIJCAMQABgNGIAEMgkIBBAAGA0YgAQyDwgFEC4YDRivARjHARiABDIICAYQABgNGB4yCAgHEAAYDRge0gEJMTc4NjlqMGo3qAIIsAIB8QUmeL0L_56N9w&sourceid=chrome&ie=UTF-8#cobssid=s
+https://docs.oracle.com/javase/tutorial/uiswing/painting/closer.html
