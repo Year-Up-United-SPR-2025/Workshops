@@ -19,5 +19,12 @@ Using SwingUtilities.invokeLater, it ensures that all UI setup runs on the Event
 
 As you can see when you press build you will be taken into the GUI for the project as you can see you see a red dot representing you in a gray void and a button that says Reset Canvas.
 
+From the recording that I have here you can see how my project works:
 [Recording 2025-05-22 153724.mp4](../../../../../../Screenshots/Recording%202025-05-22%20153724.mp4)
+
+# Interesting Code
+![carbon (1).png](../../../../../../Screenshots/carbon%20%281%29.png)
+
+# Refences I used to make this project 
+https://github.com/Year-Up-United-SPR-2025/Workshops/blob/main/TurtlePaint/src/main/java/com/pluralsight/References/References.txt
 
