@@ -1,7 +1,10 @@
 package com.pluralsight.Models;
 
 public class Vehicle {
-    private int vin;
+
+    private int id;
+    private int dealershipId;
+    private String vin;
     private int year;
     private String make;
     private String model;
@@ -9,29 +12,72 @@ public class Vehicle {
     private String color;
     private int odometer;
     private double price;
+    private boolean sold;
 
-    public Vehicle(int year, String make, String model, String vehicleType, String color, int odometer, double price) {
+    // Default constructor for database operations
+    public Vehicle() {
+    }
+
+    // Constructor without ID (for new vehicles before database insert)
+    public Vehicle(String vin, int year, String make, String model, String vehicleType,
+                   String color, int odometer, double price) {
         this.vin = vin;
-        this.year = year; // this was causing an issue due to me not spelling it right
+        this.year = year;
         this.make = make;
         this.model = model;
         this.vehicleType = vehicleType;
         this.color = color;
         this.odometer = odometer;
         this.price = price;
+        this.sold = false;  // Default to not sold
     }
 
-    @Override
-    public String toString() {
-        return String.format("%d | %s | %s | %s | %s | %,d | $%.2f",
-                year, make, model, vehicleType, color, odometer, price);
+    // Full constructor with all fields (for database retrieval)
+    public Vehicle(int id, int dealershipId, String vin, int year, String make, String model,
+                   String vehicleType, String color, int odometer, double price, boolean sold) {
+        this.id = id;
+        this.dealershipId = dealershipId;
+        this.vin = vin;
+        this.year = year;
+        this.make = make;
+        this.model = model;
+        this.vehicleType = vehicleType;
+        this.color = color;
+        this.odometer = odometer;
+        this.price = price;
+        this.sold = sold;
     }
 
-    public int getVin() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getDealershipId() {
+        return dealershipId;
+    }
+
+    public void setDealershipId(int dealershipId) {
+        this.dealershipId = dealershipId;
+    }
+
+    public boolean isSold() {
+        return sold;
+    }
+
+    public void setSold(boolean sold) {
+        this.sold = sold;
+    }
+
+    // Existing getters/setters (same as CSV version)
+    public String getVin() {
         return vin;
     }
 
-    public void setVin(int vin) {
+    public void setVin(String vin) {
         this.vin = vin;
     }
 
@@ -89,5 +135,25 @@ public class Vehicle {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %d %s %s %s %s %d $%.2f %s",
+                vin, year, make, model, vehicleType, color, odometer, price,
+                sold ? "SOLD" : "AVAILABLE");
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Vehicle vehicle = (Vehicle) obj;
+        return vin != null ? vin.equals(vehicle.vin) : vehicle.vin == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return vin != null ? vin.hashCode() : 0;
     }
 }

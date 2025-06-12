@@ -1,42 +1,125 @@
 package com.pluralsight.Models;
 
-public class LeaseContract extends Contract {
-    // Constants for Rates and Months
-    private static final double LEASE_FEE_RATE = 0.07;       // 7% lease fee
-    private static final double ENDING_VALUE_RATE = 0.50;    // 50% of original price
-    private static final double INTEREST_RATE = 0.04;        // 4% annual interest
-    private static final int LEASE_TERM_MONTHS = 36;         // 3 years lease
+public class LeaseContract {
 
-    // Constructor
-    public LeaseContract(String date, String customerName, String customerEmail, Vehicle vehicleSold) {
-        super(date, customerName, customerEmail, vehicleSold);  // Call abstract superclass constructor
+    private int id;
+    private String dateOfContract;
+    private String customerName;
+    private String customerEmail;
+    private Vehicle vehicleSold;
+    private double expectedEndingValue;
+    private double leaseFee;
+    private double totalPrice;
+    private double monthlyPayment;
+
+    public LeaseContract() {
     }
 
-    // Calculate the expected ending value (50% of original vehicle price)
+    public LeaseContract(String dateOfContract, String customerName, String customerEmail,
+                         Vehicle vehicleSold, double expectedEndingValue, double leaseFee) {
+        this.dateOfContract = dateOfContract;
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+        this.vehicleSold = vehicleSold;
+        this.expectedEndingValue = expectedEndingValue;
+        this.leaseFee = leaseFee;
+
+        // Calculate totals
+        calculateTotalPrice();
+        calculateMonthlyPayment();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDateOfContract() {
+        return dateOfContract;
+    }
+
+    public void setDateOfContract(String dateOfContract) {
+        this.dateOfContract = dateOfContract;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public Vehicle getVehicleSold() {
+        return vehicleSold;
+    }
+
+    public void setVehicleSold(Vehicle vehicleSold) {
+        this.vehicleSold = vehicleSold;
+    }
+
     public double getExpectedEndingValue() {
-        return getVehicleSold().getPrice() * ENDING_VALUE_RATE;
+        return expectedEndingValue;
     }
 
-    // Calculate the lease fee (7% of vehicle price)
+    public void setExpectedEndingValue(double expectedEndingValue) {
+        this.expectedEndingValue = expectedEndingValue;
+    }
+
     public double getLeaseFee() {
-        return getVehicleSold().getPrice() * LEASE_FEE_RATE;
+        return leaseFee;
     }
 
-    // Override method to calculate total price (lease fee only)
-    @Override
+    public void setLeaseFee(double leaseFee) {
+        this.leaseFee = leaseFee;
+    }
+
     public double getTotalPrice() {
-        return getLeaseFee();  // Only the lease fee is considered the "total price"
+        return totalPrice;
     }
 
-    // Override method to calculate monthly lease payment using the amortization formula
-    @Override
-    public double getMonthlyPayment() {
-        double price = getVehicleSold().getPrice();
-        double monthlyRate = INTEREST_RATE / 12;
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
-        // Amortized monthly payment formula:
-        // M = P * (r(1+r)^n) / ((1+r)^n - 1)
-        return (price * monthlyRate * Math.pow(1 + monthlyRate, LEASE_TERM_MONTHS)) /
-                (Math.pow(1 + monthlyRate, LEASE_TERM_MONTHS) - 1);
+    public double getMonthlyPayment() {
+        return monthlyPayment;
+    }
+
+    public void setMonthlyPayment(double monthlyPayment) {
+        this.monthlyPayment = monthlyPayment;
+    }
+
+    public void calculateTotalPrice() {
+        if (vehicleSold != null) {
+            totalPrice = (vehicleSold.getPrice() - expectedEndingValue) + leaseFee;
+        }
+    }
+
+    public void calculateMonthlyPayment() {
+        if (totalPrice > 0) {
+            // Lease is always 36 months with 4% interest
+            double monthlyRate = 0.04 / 12;
+            int months = 36;
+
+            monthlyPayment = (totalPrice * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
+        }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Lease Contract - %s | %s | %s | $%.2f",
+                dateOfContract, customerName, vehicleSold.getVin(), totalPrice);
     }
 }

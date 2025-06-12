@@ -1,78 +1,152 @@
 package com.pluralsight.Models;
 
-public class SalesContract extends Contract {
+public class SalesContract {
 
-    // Constants for fees and tax rates
-    private static final double SALES_TAX_RATE = 0.05;           // 5% sales tax
-    private static final double RECORDING_FEE = 100.00;          // Flat $100 fee
+    private int id;
 
-    // If the customer wants to finance the vehicle
-    private boolean finance;
+    // Contract information
+    private String dateOfContract;
+    private String customerName;
+    private String customerEmail;
+    private Vehicle vehicleSold;
+
+    // Financial information
+    private double totalPrice;
+    private double monthlyPayment;
+    private double salesTaxAmount;
+    private double recordingFee;
+    private double processingFee;
+    private boolean financeOption;
 
 
-     //Constructor for a SalesContract
-    public SalesContract(String sale, String customerName, String customerEmail, Vehicle vehicleSold, boolean finance) {
-        super(sale, customerName, customerEmail, vehicleSold); // Call constructor in Contract
-        this.finance = finance;
+    public SalesContract() {
     }
 
-    // Getter for financing status
-    public boolean isFinance() {
-        return finance;
+    public SalesContract(String dateOfContract, String customerName, String customerEmail,
+                         Vehicle vehicleSold, double salesTaxAmount, double recordingFee,
+                         double processingFee, boolean financeOption) {
+        this.dateOfContract = dateOfContract;
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+        this.vehicleSold = vehicleSold;
+        this.salesTaxAmount = salesTaxAmount;
+        this.recordingFee = recordingFee;
+        this.processingFee = processingFee;
+        this.financeOption = financeOption;
+
+        // Calculate totals
+        calculateTotalPrice();
+        calculateMonthlyPayment();
     }
 
-    // Setter for financing status
-    public void setFinance(boolean finance) {
-        this.finance = finance;
+    public int getId() {
+        return id;
     }
 
-    // Calculates the sales tax amount (5% of vehicle price)
-    public double getSalesTaxAmount() {
-        return getVehicleSold().getPrice() * SALES_TAX_RATE;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    // Returns the flat $100 recording fee
-    public double getRecordingFee() {
-        return RECORDING_FEE;
+    public String getDateOfContract() {
+        return dateOfContract;
     }
 
-    // Calculates the processing fee based on vehicle price
-    // $295 if under $10,000; otherwise, $495
-    public double getProcessingFee() {
-        return getVehicleSold().getPrice() < 10000 ? 295.00 : 495.00;
+    public void setDateOfContract(String dateOfContract) {
+        this.dateOfContract = dateOfContract;
     }
 
-    // Overrides the abstract method in Contract
-    // Computes total price = base + tax + recording + processing
-    @Override
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public Vehicle getVehicleSold() {
+        return vehicleSold;
+    }
+
+    public void setVehicleSold(Vehicle vehicleSold) {
+        this.vehicleSold = vehicleSold;
+    }
+
     public double getTotalPrice() {
-        return getVehicleSold().getPrice() + getSalesTaxAmount() + getRecordingFee() + getProcessingFee();
+        return totalPrice;
     }
 
-    // Overrides the abstract method in Contract
-    // Returns monthly payment if financed, otherwise 0.0
-    @Override
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     public double getMonthlyPayment() {
-        if (!finance) return 0.0; // No financing = no monthly payment
+        return monthlyPayment;
+    }
 
-        double totalPrice = getTotalPrice();
-        double interestRate;
-        int months;
+    public void setMonthlyPayment(double monthlyPayment) {
+        this.monthlyPayment = monthlyPayment;
+    }
 
-        // Determine interest rate and loan duration based on vehicle price
-        if (getVehicleSold().getPrice() >= 10000) {
-            interestRate = 0.0425; // 4.25% annual
-            months = 48;           // 4 years
-        } else {
-            interestRate = 0.0525; // 5.25% annual
-            months = 24;           // 2 years
+    public double getSalesTaxAmount() {
+        return salesTaxAmount;
+    }
+
+    public void setSalesTaxAmount(double salesTaxAmount) {
+        this.salesTaxAmount = salesTaxAmount;
+    }
+
+    public double getRecordingFee() {
+        return recordingFee;
+    }
+
+    public void setRecordingFee(double recordingFee) {
+        this.recordingFee = recordingFee;
+    }
+
+    public double getProcessingFee() {
+        return processingFee;
+    }
+
+    public void setProcessingFee(double processingFee) {
+        this.processingFee = processingFee;
+    }
+
+    public boolean isFinanceOption() {
+        return financeOption;
+    }
+
+    public void setFinanceOption(boolean financeOption) {
+        this.financeOption = financeOption;
+    }
+
+    public void calculateTotalPrice() {
+        if (vehicleSold != null) {
+            totalPrice = vehicleSold.getPrice() + salesTaxAmount + recordingFee + processingFee;
         }
+    }
 
-        // Monthly interest rate
-        double monthlyRate = interestRate / 12;
+    public void calculateMonthlyPayment() {
+        if (financeOption && totalPrice > 0) {
+            double interestRate = (vehicleSold.getPrice() >= 10000) ? 0.0425 : 0.0525;
+            int months = (vehicleSold.getPrice() >= 10000) ? 48 : 24;
+            double monthlyRate = interestRate / 12;
+            monthlyPayment = (totalPrice * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
+        } else {
+            monthlyPayment = 0;
+        }
+    }
 
-        // Use loan amortization formula:
-        // M = P * (r(1+r)^n) / ((1+r)^n - 1)
-        return totalPrice * (monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+    @Override
+    public String toString() {
+        return String.format("Sales Contract - %s | %s | %s | $%.2f",
+                dateOfContract, customerName, vehicleSold.getVin(), totalPrice);
     }
 }
