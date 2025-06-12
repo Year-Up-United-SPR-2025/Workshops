@@ -1,8 +1,8 @@
 package com.pluralsight.UI;
 
-import com.pluralsight.Data.Dealership;
+import com.pluralsight.Models.Dealership;
 import com.pluralsight.Data.DealershipFileManager;
-import com.pluralsight.Data.Vehicle;
+import com.pluralsight.Models.Vehicle;
 
 import java.io.File;
 import java.util.List;

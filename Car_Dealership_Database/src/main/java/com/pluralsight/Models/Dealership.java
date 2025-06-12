@@ -1,4 +1,4 @@
-package com.pluralsight.Data;
+package com.pluralsight.Models;
 
 import java.util.ArrayList;
 import java.util.List;

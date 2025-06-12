@@ -1,6 +1,4 @@
-package com.pluralsight.Contracts;
-
-import com.pluralsight.Data.Vehicle;
+package com.pluralsight.Models;
 
 public class LeaseContract extends Contract {
     // Constants for Rates and Months

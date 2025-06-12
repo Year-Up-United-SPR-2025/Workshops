@@ -1,6 +1,4 @@
-package com.pluralsight.Contracts;
-
-import com.pluralsight.Data.Vehicle;
+package com.pluralsight.Models;
 
 public class SalesContract extends Contract {
 
