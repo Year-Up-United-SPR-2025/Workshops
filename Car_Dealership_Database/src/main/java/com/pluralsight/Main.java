@@ -1,11 +1,11 @@
 package com.pluralsight;
 
-import com.pluralsight.UI.UserInterface;
+import com.pluralsight.UI.DealershipUI;
 
 public class Main {
     public static void main(String[] args) {
         // Create UserInterface instance and display the menu
-        UserInterface ui = new UserInterface();
-        ui.display();
+        DealershipUI ui = new DealershipUI();
+        ui.displayMenu();
     }
 }
