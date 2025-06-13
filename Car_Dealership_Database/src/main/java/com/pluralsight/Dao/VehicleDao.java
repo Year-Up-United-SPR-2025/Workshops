@@ -20,7 +20,7 @@ public class VehicleDao {
 
     public List<Vehicle> findByPriceRange(double minPrice, double maxPrice) {
         List<Vehicle> vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM vehicles WHERE price BETWEEN ? AND ?";
+        String sql = "SELECT * FROM cardealership.vehicles WHERE price BETWEEN ? AND ?";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -42,7 +42,7 @@ public class VehicleDao {
 
     public List<Vehicle> findByMakeModel(String make, String model) {
         List<Vehicle> vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM vehicles WHERE make = ? AND model = ?";
+        String sql = "SELECT * FROM cardealership.vehicles WHERE make = ? AND model = ?";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -64,7 +64,7 @@ public class VehicleDao {
 
     public List<Vehicle> findByYearRange(int startYear, int endYear) {
         List<Vehicle> vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM vehicles WHERE year BETWEEN ? AND ?";
+        String sql = "SELECT * FROM cardealership.vehicles WHERE year BETWEEN ? AND ?";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -86,7 +86,7 @@ public class VehicleDao {
 
     public List<Vehicle> findByColor(String color) {
         List<Vehicle> vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM vehicles WHERE color = ?";
+        String sql = "SELECT * FROM cardealership.vehicles WHERE color = ?";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -107,7 +107,7 @@ public class VehicleDao {
 
     public List<Vehicle> findByMileageRange(int minMileage, int maxMileage) {
         List<Vehicle> vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM vehicles WHERE odometer BETWEEN ? AND ?";
+        String sql = "SELECT * FROM cardealership.vehicles WHERE odometer BETWEEN ? AND ?";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -129,7 +129,7 @@ public class VehicleDao {
 
     public List<Vehicle> findByType(String vehicleType) {
         List<Vehicle> vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM vehicles WHERE vehicle_type = ?";
+        String sql = "SELECT * FROM cardealership.vehicles WHERE vehicle_type = ?";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -149,7 +149,7 @@ public class VehicleDao {
     }
 
     public boolean addVehicle(Vehicle vehicle) {
-        String sql = "INSERT INTO vehicles (vin, year, make, model, vehicle_type, color, odometer, price, sold, dealership_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO cardealership.vehicles (vin, year, make, model, vehicle_type, color, odometer, price, sold, dealership_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -183,7 +183,7 @@ public class VehicleDao {
     }
 
     public boolean removeVehicle(String vin) {
-        String sql = "DELETE FROM vehicles WHERE vin = ?";
+        String sql = "DELETE FROM cardealership.vehicles WHERE vin = ?";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -200,7 +200,7 @@ public class VehicleDao {
     }
 
     public Vehicle findByVin(String vin) {
-        String sql = "SELECT * FROM vehicles WHERE vin = ?";
+        String sql = "SELECT * FROM cardealership.vehicles WHERE vin = ?";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -221,7 +221,7 @@ public class VehicleDao {
 
     public List<Vehicle> getAllVehicles() {
         List<Vehicle> vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM vehicles";
+        String sql = "SELECT * FROM cardealership.vehicles";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -240,7 +240,7 @@ public class VehicleDao {
 
     public List<Vehicle> getVehiclesByDealership(int dealershipId) {
         List<Vehicle> vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM vehicles WHERE dealership_id = ?";
+        String sql = "SELECT * FROM cardealership.vehicles WHERE dealership_id = ?";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql)) {

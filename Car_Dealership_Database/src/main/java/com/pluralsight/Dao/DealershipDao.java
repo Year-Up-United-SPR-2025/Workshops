@@ -39,7 +39,7 @@ public class DealershipDao {
 
     public List<Dealership> getAllDealerships() {
         List<Dealership> dealerships = new ArrayList<>();
-        String sql = "SELECT * FROM dealerships";
+        String sql = "SELECT * FROM cardealership.dealerships";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql)) {

@@ -37,7 +37,7 @@ public class DealershipUI {
 
         this.currentDealership = dealershipDao.findById(1);
         if (this.currentDealership == null) {
-            System.out.println("Error: Could not load dealership from database!");
+            System.out.println(ColorCodes.BRIGHT_RED + "❌ Error: Could not load dealership from database!" + ColorCodes.RESET);
             System.exit(1);
         }
     }
@@ -46,25 +46,25 @@ public class DealershipUI {
         boolean running = true;
 
         while (running) {
-            System.out.println("\n" + "=".repeat(60));
-            System.out.println("Welcome to " + currentDealership.getName());
-            System.out.println(currentDealership.getAddress());
-            System.out.println(currentDealership.getPhone());
-            System.out.println("=".repeat(60));
+            System.out.println("\n" + ColorCodes.BRIGHT_CYAN + "=".repeat(60) + ColorCodes.RESET);
+            System.out.println(ColorCodes.BRIGHT_YELLOW + ColorCodes.BOLD + "🚗 Welcome to " + currentDealership.getName() + " 🚗" + ColorCodes.RESET);
+            System.out.println(ColorCodes.BRIGHT_WHITE + "📍 " + currentDealership.getAddress() + ColorCodes.RESET);
+            System.out.println(ColorCodes.BRIGHT_WHITE + "📞 " + currentDealership.getPhone() + ColorCodes.RESET);
+            System.out.println(ColorCodes.BRIGHT_CYAN + "=".repeat(60) + ColorCodes.RESET);
 
-            System.out.println("Please select from the following choices:");
-            System.out.println("1 - Find vehicles within a price range");
-            System.out.println("2 - Find vehicles by make / model");
-            System.out.println("3 - Find vehicles by year range");
-            System.out.println("4 - Find vehicles by color");
-            System.out.println("5 - Find vehicles by mileage range");
-            System.out.println("6 - Find vehicles by type (car, truck, SUV, van)");
-            System.out.println("7 - List ALL vehicles");
-            System.out.println("8 - Add a vehicle");
-            System.out.println("9 - Remove a vehicle");
-            System.out.println("10 - Sell/lease a vehicle");
-            System.out.println("99 - Quit");
-            System.out.print("Enter Selected Option: ");
+            System.out.println(ColorCodes.BRIGHT_GREEN + ColorCodes.BOLD + "\n🔧 Please select from the following choices:" + ColorCodes.RESET);
+            System.out.println(ColorCodes.YELLOW + "💰 1 - Find vehicles within a price range" + ColorCodes.RESET);
+            System.out.println(ColorCodes.YELLOW + "🏷️  2 - Find vehicles by make / model" + ColorCodes.RESET);
+            System.out.println(ColorCodes.YELLOW + "📅 3 - Find vehicles by year range" + ColorCodes.RESET);
+            System.out.println(ColorCodes.YELLOW + "🎨 4 - Find vehicles by color" + ColorCodes.RESET);
+            System.out.println(ColorCodes.YELLOW + "🛣️  5 - Find vehicles by mileage range" + ColorCodes.RESET);
+            System.out.println(ColorCodes.YELLOW + "🚙 6 - Find vehicles by type (car, truck, SUV, van)" + ColorCodes.RESET);
+            System.out.println(ColorCodes.YELLOW + "📋 7 - List ALL vehicles" + ColorCodes.RESET);
+            System.out.println(ColorCodes.BRIGHT_GREEN + "➕ 8 - Add a vehicle" + ColorCodes.RESET);
+            System.out.println(ColorCodes.BRIGHT_RED + "➖ 9 - Remove a vehicle" + ColorCodes.RESET);
+            System.out.println(ColorCodes.BRIGHT_BLUE + "🤝 10 - Sell/lease a vehicle" + ColorCodes.RESET);
+            System.out.println(ColorCodes.BRIGHT_RED + "🚪 99 - Quit" + ColorCodes.RESET);
+            System.out.print(ColorCodes.BRIGHT_WHITE + ColorCodes.BOLD + "👉 Enter Selected Option: " + ColorCodes.RESET);
 
             int choice = getIntInput();
 
@@ -103,123 +103,133 @@ public class DealershipUI {
                     running = false;
                     break;
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println(ColorCodes.BRIGHT_RED + "❌ Invalid choice. Please try again." + ColorCodes.RESET);
             }
         }
 
-        System.out.println("Thank you for visiting " + currentDealership.getName() + "!");
+        System.out.println(ColorCodes.BRIGHT_GREEN + "🙏 Thank you for visiting " + currentDealership.getName() + "! 👋" + ColorCodes.RESET);
         scanner.close();
     }
 
     private void processGetByPriceRequest() {
-        System.out.print("Enter minimum price: $");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "💰 Enter minimum price: $" + ColorCodes.RESET);
         double minPrice = getDoubleInput();
-        System.out.print("Enter maximum price: $");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "💰 Enter maximum price: $" + ColorCodes.RESET);
         double maxPrice = getDoubleInput();
 
         List<Vehicle> vehicles = vehicleDao.findByPriceRange(minPrice, maxPrice);
-        displayVehicles(vehicles, "Vehicles in price range $" + minPrice + " - $" + maxPrice);
+        displayVehicles(vehicles, "💰 Vehicles in price range $" + minPrice + " - $" + maxPrice);
     }
 
     private void displayVehicles(List<Vehicle> vehicles, String title) {
-        System.out.println("\n" + "=".repeat(50));
-        System.out.println(title);
-        System.out.println("=".repeat(50));
+        System.out.println("\n" + ColorCodes.BRIGHT_BLUE + "=".repeat(50) + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_YELLOW + ColorCodes.BOLD + title + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_BLUE + "=".repeat(50) + ColorCodes.RESET);
 
         if (vehicles.isEmpty()) {
-            System.out.println("No vehicles found.");
+            System.out.println(ColorCodes.RED + "🚫 No vehicles found." + ColorCodes.RESET);
         } else {
             for (Vehicle vehicle : vehicles) {
-                System.out.println(vehicle);
+                System.out.println(ColorCodes.BRIGHT_WHITE + "🚗 " + vehicle + ColorCodes.RESET);
             }
         }
     }
 
-
     private void processGetByMakeModelRequest() {
-        System.out.print("Enter make: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "🏷️ Enter make: " + ColorCodes.RESET);
         String make = scanner.nextLine().trim();
-        System.out.print("Enter model: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "🏷️ Enter model: " + ColorCodes.RESET);
         String model = scanner.nextLine().trim();
 
         List<Vehicle> vehicles = vehicleDao.findByMakeModel(make, model);
-        displayVehicles(vehicles, "Vehicles: " + make + " " + model);
+        displayVehicles(vehicles, "🏷️ Vehicles: " + make + " " + model);
     }
 
     private void processGetByYearRequest() {
-        System.out.print("Enter minimum year: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "📅 Enter minimum year: " + ColorCodes.RESET);
         int minYear = getIntInput();
-        System.out.print("Enter maximum year: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "📅 Enter maximum year: " + ColorCodes.RESET);
         int maxYear = getIntInput();
 
         List<Vehicle> vehicles = vehicleDao.findByYearRange(minYear, maxYear);
-        displayVehicles(vehicles, "Vehicles from " + minYear + " to " + maxYear);
+        displayVehicles(vehicles, "📅 Vehicles from " + minYear + " to " + maxYear);
     }
 
     private void processGetByColorRequest() {
-        System.out.print("Enter color: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "🎨 Enter color: " + ColorCodes.RESET);
         String color = scanner.nextLine().trim();
 
         List<Vehicle> vehicles = vehicleDao.findByColor(color);
-        displayVehicles(vehicles, "Vehicles in " + color);
+        displayVehicles(vehicles, "🎨 Vehicles in " + color);
     }
 
     private void processGetByMileageRequest() {
-        System.out.print("Enter minimum mileage: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "🛣️ Enter minimum mileage: " + ColorCodes.RESET);
         int minMileage = getIntInput();
-        System.out.print("Enter maximum mileage: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "🛣️ Enter maximum mileage: " + ColorCodes.RESET);
         int maxMileage = getIntInput();
 
         List<Vehicle> vehicles = vehicleDao.findByMileageRange(minMileage, maxMileage);
-        displayVehicles(vehicles, "Vehicles with " + minMileage + " - " + maxMileage + " miles");
+        displayVehicles(vehicles, "🛣️ Vehicles with " + minMileage + " - " + maxMileage + " miles");
     }
 
     private void processGetByVehicleTypeRequest() {
-        System.out.print("Enter vehicle type (car, truck, SUV, van): ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "🚙 Enter vehicle type (car, truck, SUV, van): " + ColorCodes.RESET);
         String type = scanner.nextLine().trim();
 
         List<Vehicle> vehicles = vehicleDao.findByType(type);
-        displayVehicles(vehicles, type + " vehicles");
+        String emoji = getVehicleTypeEmoji(type);
+        displayVehicles(vehicles, emoji + " " + type + " vehicles");
+    }
+
+    private String getVehicleTypeEmoji(String type) {
+        switch (type.toLowerCase()) {
+            case "car": return "🚗";
+            case "truck": return "🚚";
+            case "suv": return "🚙";
+            case "van": return "🚐";
+            default: return "🚗";
+        }
     }
 
     private void processGetAllVehiclesRequest() {
         List<Vehicle> vehicles = vehicleDao.getVehiclesByDealership(currentDealership.getId());
-        displayVehicles(vehicles, "All vehicles in inventory");
+        displayVehicles(vehicles, "📋 All vehicles in inventory");
     }
 
     private void processAddVehicleRequest() {
-        System.out.println("\nAdd New Vehicle");
-        System.out.println("-".repeat(30));
+        System.out.println(ColorCodes.BRIGHT_GREEN + ColorCodes.BOLD + "\n➕ Add New Vehicle" + ColorCodes.RESET);
+        System.out.println(ColorCodes.GREEN + "-".repeat(30) + ColorCodes.RESET);
 
-        System.out.print("Enter VIN: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "🆔 Enter VIN: " + ColorCodes.RESET);
         String vin = scanner.nextLine().trim();
 
         // Check if VIN already exists
         Vehicle existingVehicle = vehicleDao.findByVin(vin);
         if (existingVehicle != null) {
-            System.out.println("Error: A vehicle with VIN " + vin + " already exists!");
+            System.out.println(ColorCodes.BRIGHT_RED + "❌ Error: A vehicle with VIN " + vin + " already exists!" + ColorCodes.RESET);
             return;
         }
 
-        System.out.print("Enter year: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "📅 Enter year: " + ColorCodes.RESET);
         int year = getIntInput();
 
-        System.out.print("Enter make: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "🏭 Enter make: " + ColorCodes.RESET);
         String make = scanner.nextLine().trim();
 
-        System.out.print("Enter model: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "🏷️ Enter model: " + ColorCodes.RESET);
         String model = scanner.nextLine().trim();
 
-        System.out.print("Enter vehicle type (car, truck, SUV, van): ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "🚙 Enter vehicle type (car, truck, SUV, van): " + ColorCodes.RESET);
         String vehicleType = scanner.nextLine().trim();
 
-        System.out.print("Enter color: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "🎨 Enter color: " + ColorCodes.RESET);
         String color = scanner.nextLine().trim();
 
-        System.out.print("Enter odometer reading: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "🛣️ Enter odometer reading: " + ColorCodes.RESET);
         int odometer = getIntInput();
 
-        System.out.print("Enter price: $");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "💰 Enter price: $" + ColorCodes.RESET);
         double price = getDoubleInput();
 
         // Create new vehicle
@@ -230,75 +240,75 @@ public class DealershipUI {
         boolean success = vehicleDao.addVehicle(newVehicle);
 
         if (success) {
-            System.out.println("Vehicle added successfully!");
-            System.out.println("Vehicle ID: " + newVehicle.getId());
+            System.out.println(ColorCodes.BRIGHT_GREEN + "✅ Vehicle added successfully!" + ColorCodes.RESET);
+            System.out.println(ColorCodes.BRIGHT_YELLOW + "🆔 Vehicle ID: " + newVehicle.getId() + ColorCodes.RESET);
         } else {
-            System.out.println("Error: Failed to add vehicle to database.");
+            System.out.println(ColorCodes.BRIGHT_RED + "❌ Error: Failed to add vehicle to database." + ColorCodes.RESET);
         }
     }
 
     private void processRemoveVehicleRequest() {
-        System.out.println("\nRemove Vehicle");
-        System.out.println("-".repeat(30));
+        System.out.println(ColorCodes.BRIGHT_RED + ColorCodes.BOLD + "\n➖ Remove Vehicle" + ColorCodes.RESET);
+        System.out.println(ColorCodes.RED + "-".repeat(30) + ColorCodes.RESET);
 
-        System.out.print("Enter VIN of vehicle to remove: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "🆔 Enter VIN of vehicle to remove: " + ColorCodes.RESET);
         String vin = scanner.nextLine().trim();
 
         // Check if vehicle exists
         Vehicle vehicle = vehicleDao.findByVin(vin);
         if (vehicle == null) {
-            System.out.println("Error: No vehicle found with VIN " + vin);
+            System.out.println(ColorCodes.BRIGHT_RED + "❌ Error: No vehicle found with VIN " + vin + ColorCodes.RESET);
             return;
         }
 
         // Display vehicle details for confirmation
-        System.out.println("Vehicle to remove:");
-        System.out.println(vehicle);
+        System.out.println(ColorCodes.YELLOW + "🚗 Vehicle to remove:" + ColorCodes.RESET);
+        System.out.println(ColorCodes.WHITE + vehicle + ColorCodes.RESET);
 
-        System.out.print("Are you sure you want to remove this vehicle? (yes/no): ");
+        System.out.print(ColorCodes.BRIGHT_RED + "⚠️ Are you sure you want to remove this vehicle? (yes/no): " + ColorCodes.RESET);
         String confirmation = scanner.nextLine().trim().toLowerCase();
 
         if (confirmation.equals("yes") || confirmation.equals("y")) {
             boolean success = vehicleDao.removeVehicle(vin);
 
             if (success) {
-                System.out.println("Vehicle removed successfully!");
+                System.out.println(ColorCodes.BRIGHT_GREEN + "✅ Vehicle removed successfully!" + ColorCodes.RESET);
             } else {
-                System.out.println("Error: Failed to remove vehicle from database.");
+                System.out.println(ColorCodes.BRIGHT_RED + "❌ Error: Failed to remove vehicle from database." + ColorCodes.RESET);
             }
         } else {
-            System.out.println("Vehicle removal cancelled.");
+            System.out.println(ColorCodes.YELLOW + "🚫 Vehicle removal cancelled." + ColorCodes.RESET);
         }
     }
 
     private void processSellLeaseVehicleRequest() {
-        System.out.println("\nSell/Lease Vehicle");
-        System.out.println("-".repeat(30));
+        System.out.println(ColorCodes.BRIGHT_BLUE + ColorCodes.BOLD + "\n🤝 Sell/Lease Vehicle" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BLUE + "-".repeat(30) + ColorCodes.RESET);
 
-        System.out.print("Enter VIN of vehicle to sell/lease: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "🆔 Enter VIN of vehicle to sell/lease: " + ColorCodes.RESET);
         String vin = scanner.nextLine().trim();
 
         // Find the vehicle
         Vehicle vehicle = vehicleDao.findByVin(vin);
         if (vehicle == null) {
-            System.out.println("Error: No vehicle found with VIN " + vin);
+            System.out.println(ColorCodes.BRIGHT_RED + "❌ Error: No vehicle found with VIN " + vin + ColorCodes.RESET);
             return;
         }
 
         if (vehicle.isSold()) {
-            System.out.println("Error: This vehicle has already been sold!");
+            System.out.println(ColorCodes.BRIGHT_RED + "❌ Error: This vehicle has already been sold!" + ColorCodes.RESET);
             return;
         }
 
         // Display vehicle details
-        System.out.println("\nVehicle Details:");
-        System.out.println(vehicle);
+        System.out.println(ColorCodes.BRIGHT_YELLOW + "\n🚗 Vehicle Details:" + ColorCodes.RESET);
+        System.out.println(ColorCodes.WHITE + vehicle + ColorCodes.RESET);
 
         // Get contract type
-        System.out.println("\nContract Options:");
-        System.out.println("1 - Sale");
-        System.out.println("2 - Lease");
-        System.out.print("Choose contract type: ");
+        System.out.println(ColorCodes.BRIGHT_GREEN + "\n📋 Contract Options:" + ColorCodes.RESET);
+        System.out.println(ColorCodes.GREEN + "💸 1 - Sale" + ColorCodes.RESET);
+        System.out.println(ColorCodes.GREEN + "📝 2 - Lease" + ColorCodes.RESET);
+        System.out.print(ColorCodes.BRIGHT_WHITE + "👉 Choose contract type: " + ColorCodes.RESET);
 
         int contractType = getIntInput();
 
@@ -310,24 +320,24 @@ public class DealershipUI {
                 processLeaseContract(vehicle);
                 break;
             default:
-                System.out.println("Invalid choice. Transaction cancelled.");
+                System.out.println(ColorCodes.BRIGHT_RED + "❌ Invalid choice. Transaction cancelled." + ColorCodes.RESET);
                 return;
         }
     }
 
     private void processSaleContract(Vehicle vehicle) {
-        System.out.println("\nSales Contract");
-        System.out.println("-".repeat(30));
+        System.out.println(ColorCodes.BRIGHT_GREEN + ColorCodes.BOLD + "\n💸 Sales Contract" + ColorCodes.RESET);
+        System.out.println(ColorCodes.GREEN + "-".repeat(30) + ColorCodes.RESET);
 
         // Get customer information
-        System.out.print("Customer name: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "👤 Customer name: " + ColorCodes.RESET);
         String customerName = scanner.nextLine().trim();
 
-        System.out.print("Customer email: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "📧 Customer email: " + ColorCodes.RESET);
         String customerEmail = scanner.nextLine().trim();
 
         // Get financing option
-        System.out.print("Finance the vehicle? (yes/no): ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "💳 Finance the vehicle? (yes/no): " + ColorCodes.RESET);
         String financeChoice = scanner.nextLine().trim().toLowerCase();
         int financeOption = financeChoice.equals("yes") || financeChoice.equals("y") ? 1 : 0;
 
@@ -345,7 +355,7 @@ public class DealershipUI {
         displaySalesContractDetails(contract);
 
         // Confirm the sale
-        System.out.print("\nConfirm this sale? (yes/no): ");
+        System.out.print(ColorCodes.BRIGHT_GREEN + "\n✅ Confirm this sale? (yes/no): " + ColorCodes.RESET);
         String confirmation = scanner.nextLine().trim().toLowerCase();
 
         if (confirmation.equals("yes") || confirmation.equals("y")) {
@@ -354,33 +364,32 @@ public class DealershipUI {
 
             if (contractSaved) {
                 vehicle.setSold(true);
-                System.out.println("Sale completed successfully!");
-                System.out.println("Contract ID: " + contract.getContractId());
+                System.out.println(ColorCodes.BRIGHT_GREEN + "🎉 Sale completed successfully!" + ColorCodes.RESET);
+                System.out.println(ColorCodes.BRIGHT_YELLOW + "📄 Contract ID: " + contract.getContractId() + ColorCodes.RESET);
             } else {
-                System.out.println("Error: Failed to save sales contract.");
+                System.out.println(ColorCodes.BRIGHT_RED + "❌ Error: Failed to save sales contract." + ColorCodes.RESET);
             }
         } else {
-            System.out.println("Sale cancelled.");
+            System.out.println(ColorCodes.YELLOW + "🚫 Sale cancelled." + ColorCodes.RESET);
         }
     }
 
-
     private void processLeaseContract(Vehicle vehicle) {
-        System.out.println("\nLease Contract");
-        System.out.println("-".repeat(30));
+        System.out.println(ColorCodes.BRIGHT_BLUE + ColorCodes.BOLD + "\n📝 Lease Contract" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BLUE + "-".repeat(30) + ColorCodes.RESET);
 
         // Get customer information
-        System.out.print("Customer name: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "👤 Customer name: " + ColorCodes.RESET);
         String customerName = scanner.nextLine().trim();
 
-        System.out.print("Customer email: ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "📧 Customer email: " + ColorCodes.RESET);
         String customerEmail = scanner.nextLine().trim();
 
         // Get lease start and end dates
-        System.out.print("Enter lease start date (YYYY-MM-DD): ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "📅 Enter lease start date (YYYY-MM-DD): " + ColorCodes.RESET);
         String leaseStart = scanner.nextLine().trim();
 
-        System.out.print("Enter lease end date (YYYY-MM-DD): ");
+        System.out.print(ColorCodes.BRIGHT_CYAN + "📅 Enter lease end date (YYYY-MM-DD): " + ColorCodes.RESET);
         String leaseEnd = scanner.nextLine().trim();
 
         // Calculate lease values
@@ -396,7 +405,7 @@ public class DealershipUI {
         displayLeaseContractDetails(contract);
 
         // Confirm the lease
-        System.out.print("\nConfirm this lease? (yes/no): ");
+        System.out.print(ColorCodes.BRIGHT_BLUE + "\n✅ Confirm this lease? (yes/no): " + ColorCodes.RESET);
         String confirmation = scanner.nextLine().trim().toLowerCase();
 
         if (confirmation.equals("yes") || confirmation.equals("y")) {
@@ -406,63 +415,61 @@ public class DealershipUI {
             if (contractSaved) {
                 // Mark vehicle as sold (leased)
                 vehicle.setSold(true);
-                System.out.println("Lease completed successfully!");
-                System.out.println("Contract ID: " + contract.getId());
+                System.out.println(ColorCodes.BRIGHT_GREEN + "🎉 Lease completed successfully!" + ColorCodes.RESET);
+                System.out.println(ColorCodes.BRIGHT_YELLOW + "📄 Contract ID: " + contract.getId() + ColorCodes.RESET);
             } else {
-                System.out.println("Error: Failed to save lease contract.");
+                System.out.println(ColorCodes.BRIGHT_RED + "❌ Error: Failed to save lease contract." + ColorCodes.RESET);
             }
         } else {
-            System.out.println("Lease cancelled.");
+            System.out.println(ColorCodes.YELLOW + "🚫 Lease cancelled." + ColorCodes.RESET);
         }
     }
 
-
-
     private void displaySalesContractDetails(SalesContract contract) {
-        System.out.println("\n" + "=".repeat(50));
-        System.out.println("SALES CONTRACT DETAILS");
-        System.out.println("=".repeat(50));
-        System.out.println("Date: " + contract.getSaleDate());
-        System.out.println("Customer: " + contract.getCustomerName());
-        System.out.println("Email: " + contract.getCustomerEmail());
+        System.out.println("\n" + ColorCodes.BRIGHT_GREEN + "=".repeat(50) + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_GREEN + ColorCodes.BOLD + "💸 SALES CONTRACT DETAILS" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_GREEN + "=".repeat(50) + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_WHITE + "📅 Date: " + contract.getSaleDate() + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_WHITE + "👤 Customer: " + contract.getCustomerName() + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_WHITE + "📧 Email: " + contract.getCustomerEmail() + ColorCodes.RESET);
         System.out.println();
-        System.out.println("Vehicle: " + contract.getVehicleSold().getYear() + " " +
-                contract.getVehicleSold().getMake() + " " + contract.getVehicleSold().getModel());
-        System.out.println("VIN: " + contract.getVehicleSold().getVin());
+        System.out.println(ColorCodes.BRIGHT_YELLOW + "🚗 Vehicle: " + contract.getVehicleSold().getYear() + " " +
+                contract.getVehicleSold().getMake() + " " + contract.getVehicleSold().getModel() + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_YELLOW + "🆔 VIN: " + contract.getVehicleSold().getVin() + ColorCodes.RESET);
         System.out.println();
-        System.out.printf("Vehicle Price:     $%10.2f%n", contract.getVehicleSold().getPrice());
-        System.out.printf("Sales Tax (5%%):    $%10.2f%n", contract.getSalesTaxAmount());
-        System.out.printf("Recording Fee:     $%10.2f%n", contract.getRecordingFee());
-        System.out.printf("Processing Fee:    $%10.2f%n", contract.getProcessingFee());
-        System.out.println("-".repeat(30));
-        System.out.printf("TOTAL PRICE:       $%10.2f%n", contract.getTotalPrice());
+        System.out.printf(ColorCodes.CYAN + "💰 Vehicle Price:     $%10.2f%n" + ColorCodes.RESET, contract.getVehicleSold().getPrice());
+        System.out.printf(ColorCodes.CYAN + "🏛️  Sales Tax (5%%):    $%10.2f%n" + ColorCodes.RESET, contract.getSalesTaxAmount());
+        System.out.printf(ColorCodes.CYAN + "📋 Recording Fee:     $%10.2f%n" + ColorCodes.RESET, contract.getRecordingFee());
+        System.out.printf(ColorCodes.CYAN + "⚙️  Processing Fee:    $%10.2f%n" + ColorCodes.RESET, contract.getProcessingFee());
+        System.out.println(ColorCodes.BRIGHT_WHITE + "-".repeat(30) + ColorCodes.RESET);
+        System.out.printf(ColorCodes.BRIGHT_GREEN + ColorCodes.BOLD + "💵 TOTAL PRICE:       $%10.2f%n" + ColorCodes.RESET, contract.getTotalPrice());
 
         if (contract.isFinanceOption()) {
-            System.out.printf("Monthly Payment:   $%10.2f%n", contract.getMonthlyPayment());
+            System.out.printf(ColorCodes.BRIGHT_BLUE + "💳 Monthly Payment:   $%10.2f%n" + ColorCodes.RESET, contract.getMonthlyPayment());
         } else {
-            System.out.println("Payment Method: CASH");
+            System.out.println(ColorCodes.BRIGHT_GREEN + "💰 Payment Method: CASH" + ColorCodes.RESET);
         }
     }
 
     private void displayLeaseContractDetails(LeaseContract contract) {
-        System.out.println("\n" + "=".repeat(50));
-        System.out.println("LEASE CONTRACT DETAILS");
-        System.out.println("=".repeat(50));
-        System.out.println("Date: " + contract.getDateOfContract());
-        System.out.println("Customer: " + contract.getCustomerName());
-        System.out.println("Email: " + contract.getCustomerEmail());
+        System.out.println("\n" + ColorCodes.BRIGHT_BLUE + "=".repeat(50) + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_BLUE + ColorCodes.BOLD + "📝 LEASE CONTRACT DETAILS" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_BLUE + "=".repeat(50) + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_WHITE + "📅 Date: " + contract.getDateOfContract() + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_WHITE + "👤 Customer: " + contract.getCustomerName() + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_WHITE + "📧 Email: " + contract.getCustomerEmail() + ColorCodes.RESET);
         System.out.println();
-        System.out.println("Vehicle: " + contract.getVehicleSold().getYear() + " " +
-                contract.getVehicleSold().getMake() + " " + contract.getVehicleSold().getModel());
-        System.out.println("VIN: " + contract.getVehicleSold().getVin());
+        System.out.println(ColorCodes.BRIGHT_YELLOW + "🚗 Vehicle: " + contract.getVehicleSold().getYear() + " " +
+                contract.getVehicleSold().getMake() + " " + contract.getVehicleSold().getModel() + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_YELLOW + "🆔 VIN: " + contract.getVehicleSold().getVin() + ColorCodes.RESET);
         System.out.println();
-        System.out.printf("Vehicle Price:        $%10.2f%n", contract.getVehicleSold().getPrice());
-        System.out.printf("Expected Ending Value: $%10.2f%n", contract.getExpectedEndingValue());
-        System.out.printf("Lease Fee (7%%):       $%10.2f%n", contract.getLeaseFee());
-        System.out.println("-".repeat(35));
-        System.out.printf("TOTAL LEASE PRICE:    $%10.2f%n", contract.getTotalPrice());
-        System.out.printf("Monthly Payment:      $%10.2f%n", contract.getMonthlyPayment());
-        System.out.println("Lease Term: 36 months");
+        System.out.printf(ColorCodes.CYAN + "💰 Vehicle Price:        $%10.2f%n" + ColorCodes.RESET, contract.getVehicleSold().getPrice());
+        System.out.printf(ColorCodes.CYAN + "📈 Expected Ending Value: $%10.2f%n" + ColorCodes.RESET, contract.getExpectedEndingValue());
+        System.out.printf(ColorCodes.CYAN + "💸 Lease Fee (7%%):       $%10.2f%n" + ColorCodes.RESET, contract.getLeaseFee());
+        System.out.println(ColorCodes.SNOW + "-".repeat(35) + ColorCodes.RESET);
+        System.out.printf(ColorCodes.BRIGHT_BLUE + ColorCodes.BOLD + "💵 TOTAL LEASE PRICE:    $%10.2f%n" + ColorCodes.RESET, contract.getTotalPrice());
+        System.out.printf(ColorCodes.BRIGHT_GREEN + "💳 Monthly Payment:      $%10.2f%n" + ColorCodes.RESET, contract.getMonthlyPayment());
+        System.out.println(ColorCodes.BRIGHT_PURPLE + "⏰ Lease Term: 36 months" + ColorCodes.RESET);
     }
 
     private int getIntInput() {
@@ -471,7 +478,7 @@ public class DealershipUI {
                 int value = Integer.parseInt(scanner.nextLine().trim());
                 return value;
             } catch (NumberFormatException e) {
-                System.out.print("Invalid input. Please enter a number: ");
+                System.out.print(ColorCodes.BRIGHT_RED + "❌ Invalid input. Please enter a number: " + ColorCodes.RESET);
             }
         }
     }
@@ -482,7 +489,7 @@ public class DealershipUI {
                 double value = Double.parseDouble(scanner.nextLine().trim());
                 return value;
             } catch (NumberFormatException e) {
-                System.out.print("Invalid input. Please enter a valid number: ");
+                System.out.print(ColorCodes.BRIGHT_RED + "❌ Invalid input. Please enter a valid number: " + ColorCodes.RESET);
             }
         }
     }
