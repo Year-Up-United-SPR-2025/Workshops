@@ -18,7 +18,7 @@ public class DealershipDao {
     }
 
     public Dealership findById(int id) {
-        String sql = "SELECT * FROM dealerships WHERE id = ?";
+        String sql = "SELECT * FROM cardealership.dealerships WHERE dealership_id = ?;";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql)) {

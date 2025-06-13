@@ -9,6 +9,7 @@ public class SalesContract {
     private String customerName;
     private String customerEmail;
     private Vehicle vehicleSold;
+    private String vehicleVin; // Added vehicle VIN
 
     // Financial information
     private double totalPrice;
@@ -17,16 +18,19 @@ public class SalesContract {
     private double recordingFee;
     private double processingFee;
     private int financeOption;  // Stores as 1 (true) or 0 (false)
+    private double salePrice; // Added sale price
 
     public SalesContract() {}
 
     public SalesContract(String saleDate, String customerName, String customerEmail,
-                         Vehicle vehicleSold, double salesTaxAmount, double recordingFee,
-                         double processingFee, int financeOption) {
+                         Vehicle vehicleSold, String vehicleVin, double salePrice, double salesTaxAmount,
+                         double recordingFee, double processingFee, int financeOption) {
         this.saleDate = saleDate;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.vehicleSold = vehicleSold;
+        this.vehicleVin = vehicleVin;
+        this.salePrice = salePrice;
         this.salesTaxAmount = salesTaxAmount;
         this.recordingFee = recordingFee;
         this.processingFee = processingFee;
@@ -34,6 +38,9 @@ public class SalesContract {
 
         calculateTotalPrice();
         calculateMonthlyPayment();
+    }
+
+    public SalesContract(String contractDate, String customerName, String customerEmail, Vehicle vehicle, double salesTax, double recordingFee, double processingFee, int financeOption) {
     }
 
     public int getContractId() {
@@ -74,6 +81,22 @@ public class SalesContract {
 
     public void setVehicleSold(Vehicle vehicleSold) {
         this.vehicleSold = vehicleSold;
+    }
+
+    public String getVehicleVin() {
+        return vehicleVin;
+    }
+
+    public void setVehicleVin(String vehicleVin) {
+        this.vehicleVin = vehicleVin;
+    }
+
+    public double getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(double salePrice) {
+        this.salePrice = salePrice;
     }
 
     public double getTotalPrice() {
@@ -124,16 +147,20 @@ public class SalesContract {
         this.financeOption = financeOption;
     }
 
+    public boolean isFinanceOption() {
+        return financeOption == 1;
+    }
+
     public void calculateTotalPrice() {
         if (vehicleSold != null) {
-            totalPrice = vehicleSold.getPrice() + salesTaxAmount + recordingFee + processingFee;
+            totalPrice = salePrice + salesTaxAmount + recordingFee + processingFee;
         }
     }
 
     public void calculateMonthlyPayment() {
         if (financeOption == 1 && totalPrice > 0) {
-            double interestRate = (vehicleSold.getPrice() >= 10000) ? 0.0425 : 0.0525;
-            int months = (vehicleSold.getPrice() >= 10000) ? 48 : 24;
+            double interestRate = (salePrice >= 10000) ? 0.0425 : 0.0525;
+            int months = (salePrice >= 10000) ? 48 : 24;
             double monthlyRate = interestRate / 12;
 
             monthlyPayment = (totalPrice * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
@@ -145,6 +172,6 @@ public class SalesContract {
     @Override
     public String toString() {
         return String.format("Sales Contract - %s | %s | %s | $%.2f | Finance: %s",
-                saleDate, customerName, vehicleSold.getVin(), totalPrice, financeOption == 1 ? "Yes" : "No");
+                saleDate, customerName, vehicleVin, totalPrice, financeOption == 1 ? "Yes" : "No");
     }
 }

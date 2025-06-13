@@ -155,15 +155,15 @@ public class VehicleDao {
              PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             statement.setString(1, vehicle.getVin());
-            statement.setInt(2, vehicle.getYear());
-            statement.setString(3, vehicle.getMake());
-            statement.setString(4, vehicle.getModel());
-            statement.setString(5, vehicle.getVehicleType());
-            statement.setString(6, vehicle.getColor());
-            statement.setInt(7, vehicle.getOdometer());
-            statement.setDouble(8, vehicle.getPrice());
-            statement.setBoolean(9, vehicle.isSold());
-            statement.setInt(10, vehicle.getDealershipId());
+            statement.setString(2, vehicle.getMake());
+            statement.setString(3, vehicle.getModel());
+            statement.setInt(4, vehicle.getYear());
+            statement.setString(5, vehicle.getColor());
+            statement.setDouble(6, vehicle.getPrice());
+            statement.setBoolean(7, vehicle.isSold());
+            statement.setInt(8, vehicle.getDealershipId());
+            statement.setString(9, vehicle.getVehicleType());
+            statement.setInt(10, vehicle.getOdometer());
 
             int rowsAffected = statement.executeUpdate();
 
@@ -262,15 +262,15 @@ public class VehicleDao {
     private Vehicle createVehicleFromResultSet(ResultSet resultSet) throws SQLException {
         Vehicle vehicle = new Vehicle();
         vehicle.setVin(resultSet.getString("vin"));
-        vehicle.setYear(resultSet.getInt("year"));
         vehicle.setMake(resultSet.getString("make"));
         vehicle.setModel(resultSet.getString("model"));
-        vehicle.setVehicleType(resultSet.getString("vehicle_type"));
+        vehicle.setYear(resultSet.getInt("year"));
         vehicle.setColor(resultSet.getString("color"));
-        vehicle.setOdometer(resultSet.getInt("odometer"));
         vehicle.setPrice(resultSet.getDouble("price"));
         vehicle.setSold(resultSet.getBoolean("sold"));
-        vehicle.setDealershipId(resultSet.getInt("dealership_id"));
+        vehicle.setDealershipId(resultSet.getInt("dealershipId"));
+        vehicle.setVehicleType(resultSet.getString("vehicleType"));
+        vehicle.setOdometer(resultSet.getInt("odometer"));
         return vehicle;
     }
 }

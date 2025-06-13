@@ -19,8 +19,8 @@ public class SalesDao {
 
     public boolean saveSalesContract(SalesContract contract) {
         String sql = "INSERT INTO sales_contracts (sale_date, customer_name, customer_email, vehicle_vin, " +
-                "total_price, monthly_payment, sales_tax, recording_fee, processing_fee, finance_option) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "total_price, monthly_payment, sales_tax, recording_fee, processing_fee, finance_option, sale_price) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -28,13 +28,14 @@ public class SalesDao {
             statement.setString(1, contract.getSaleDate());
             statement.setString(2, contract.getCustomerName());
             statement.setString(3, contract.getCustomerEmail());
-            statement.setString(4, contract.getVehicleSold().getVin());
+            statement.setString(4, contract.getVehicleVin());
             statement.setDouble(5, contract.getTotalPrice());
             statement.setDouble(6, contract.getMonthlyPayment());
             statement.setDouble(7, contract.getSalesTaxAmount());
             statement.setDouble(8, contract.getRecordingFee());
             statement.setDouble(9, contract.getProcessingFee());
             statement.setInt(10, contract.getFinanceOption());
+            statement.setDouble(11, contract.getSalePrice()); 
 
             int rowsAffected = statement.executeUpdate();
 
@@ -104,6 +105,8 @@ public class SalesDao {
         contract.setRecordingFee(resultSet.getDouble("recording_fee"));
         contract.setProcessingFee(resultSet.getDouble("processing_fee"));
         contract.setFinanceOption(resultSet.getInt("finance_option"));
+        contract.setSalePrice(resultSet.getDouble("sale_price"));
+        contract.setVehicleVin(resultSet.getString("VIN"));
 
         return contract;
     }

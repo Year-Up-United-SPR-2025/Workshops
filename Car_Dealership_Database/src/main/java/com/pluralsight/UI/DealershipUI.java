@@ -121,6 +121,21 @@ public class DealershipUI {
         displayVehicles(vehicles, "Vehicles in price range $" + minPrice + " - $" + maxPrice);
     }
 
+    private void displayVehicles(List<Vehicle> vehicles, String title) {
+        System.out.println("\n" + "=".repeat(50));
+        System.out.println(title);
+        System.out.println("=".repeat(50));
+
+        if (vehicles.isEmpty()) {
+            System.out.println("No vehicles found.");
+        } else {
+            for (Vehicle vehicle : vehicles) {
+                System.out.println(vehicle);
+            }
+        }
+    }
+
+
     private void processGetByMakeModelRequest() {
         System.out.print("Enter make: ");
         String make = scanner.nextLine().trim();
@@ -314,7 +329,7 @@ public class DealershipUI {
         // Get financing option
         System.out.print("Finance the vehicle? (yes/no): ");
         String financeChoice = scanner.nextLine().trim().toLowerCase();
-        boolean financeOption = financeChoice.equals("yes") || financeChoice.equals("y");
+        int financeOption = financeChoice.equals("yes") || financeChoice.equals("y") ? 1 : 0;
 
         // Calculate fees
         double salesTax = vehicle.getPrice() * 0.05; // 5% sales tax
@@ -338,12 +353,9 @@ public class DealershipUI {
             boolean contractSaved = salesDao.saveSalesContract(contract);
 
             if (contractSaved) {
-                // Mark vehicle as sold
                 vehicle.setSold(true);
-                // Note: You might want to add an updateVehicle method to VehicleDao
-
                 System.out.println("Sale completed successfully!");
-                System.out.println("Contract ID: " + contract.getId());
+                System.out.println("Contract ID: " + contract.getContractId());
             } else {
                 System.out.println("Error: Failed to save sales contract.");
             }
@@ -351,6 +363,7 @@ public class DealershipUI {
             System.out.println("Sale cancelled.");
         }
     }
+
 
     private void processLeaseContract(Vehicle vehicle) {
         System.out.println("\nLease Contract");
@@ -363,14 +376,21 @@ public class DealershipUI {
         System.out.print("Customer email: ");
         String customerEmail = scanner.nextLine().trim();
 
+        // Get lease start and end dates
+        System.out.print("Enter lease start date (YYYY-MM-DD): ");
+        String leaseStart = scanner.nextLine().trim();
+
+        System.out.print("Enter lease end date (YYYY-MM-DD): ");
+        String leaseEnd = scanner.nextLine().trim();
+
         // Calculate lease values
         double expectedEndingValue = vehicle.getPrice() * 0.50; // 50% of original price
         double leaseFee = vehicle.getPrice() * 0.07; // 7% lease fee
 
         // Create lease contract
         String contractDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-        LeaseContract contract = new LeaseContract(contractDate, customerName, customerEmail,
-                vehicle, expectedEndingValue, leaseFee);
+        LeaseContract contract = new LeaseContract(contractDate, leaseStart, leaseEnd,
+                customerName, customerEmail, vehicle, expectedEndingValue, leaseFee);
 
         // Display contract details
         displayLeaseContractDetails(contract);
@@ -386,7 +406,6 @@ public class DealershipUI {
             if (contractSaved) {
                 // Mark vehicle as sold (leased)
                 vehicle.setSold(true);
-
                 System.out.println("Lease completed successfully!");
                 System.out.println("Contract ID: " + contract.getId());
             } else {
@@ -397,44 +416,13 @@ public class DealershipUI {
         }
     }
 
-    private void displayVehicles(List<Vehicle> vehicles, String title) {
-        System.out.println("\n" + title);
-        System.out.println("=".repeat(title.length()));
 
-        if (vehicles.isEmpty()) {
-            System.out.println("No vehicles found matching your criteria.");
-            return;
-        }
-
-        System.out.println("Found " + vehicles.size() + " vehicle(s):");
-        System.out.println();
-
-        // Header
-        System.out.printf("%-17s %-4s %-12s %-15s %-8s %-10s %-8s %-10s %-8s%n",
-                "VIN", "Year", "Make", "Model", "Type", "Color", "Miles", "Price", "Status");
-        System.out.println("-".repeat(100));
-
-        // Vehicle data
-        for (Vehicle vehicle : vehicles) {
-            System.out.printf("%-17s %-4d %-12s %-15s %-8s %-10s %-8d $%-9.2f %-8s%n",
-                    vehicle.getVin(),
-                    vehicle.getYear(),
-                    vehicle.getMake(),
-                    vehicle.getModel(),
-                    vehicle.getVehicleType(),
-                    vehicle.getColor(),
-                    vehicle.getOdometer(),
-                    vehicle.getPrice(),
-                    vehicle.isSold() ? "SOLD" : "AVAILABLE");
-        }
-        System.out.println();
-    }
 
     private void displaySalesContractDetails(SalesContract contract) {
         System.out.println("\n" + "=".repeat(50));
         System.out.println("SALES CONTRACT DETAILS");
         System.out.println("=".repeat(50));
-        System.out.println("Date: " + contract.getDateOfContract());
+        System.out.println("Date: " + contract.getSaleDate());
         System.out.println("Customer: " + contract.getCustomerName());
         System.out.println("Email: " + contract.getCustomerEmail());
         System.out.println();
