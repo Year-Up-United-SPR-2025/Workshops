@@ -58,7 +58,7 @@ public class DealershipDao {
 
     private Dealership createDealershipFromResultSet(ResultSet resultSet) throws SQLException {
         Dealership dealership = new Dealership();
-        dealership.setId(resultSet.getInt("id"));
+        dealership.setId(resultSet.getInt("dealership_id"));
         dealership.setName(resultSet.getString("name"));
         dealership.setAddress(resultSet.getString("address"));
         dealership.setPhone(resultSet.getString("phone"));

@@ -19,7 +19,7 @@ public class LeaseDao {
 
     public boolean saveLeaseContract(LeaseContract contract) {
         String sql = "INSERT INTO lease_contracts (contract_date, customer_name, customer_email, vehicle_vin, " +
-                "expected_ending_value, lease_fee, total_price, monthly_payment) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                "expected_ending_value, lease_fee, total_price, monthly_payment, lease_start, lease_end) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -32,6 +32,8 @@ public class LeaseDao {
             statement.setDouble(6, contract.getLeaseFee());
             statement.setDouble(7, contract.getTotalPrice());
             statement.setDouble(8, contract.getMonthlyPayment());
+            statement.setString(9, contract.getLeaseStart());
+            statement.setString(10, contract.getLeaseEnd());
 
             int rowsAffected = statement.executeUpdate();
 
@@ -50,13 +52,13 @@ public class LeaseDao {
         return false;
     }
 
-    public LeaseContract findLeaseContractById(int id) {
-        String sql = "SELECT * FROM lease_contracts WHERE id = ?";
+    public LeaseContract findLeaseContractById(int leaseId) {
+        String sql = "SELECT * FROM lease_contracts WHERE lease_id = ?";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, id);
+            statement.setInt(1, leaseId);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
@@ -91,7 +93,7 @@ public class LeaseDao {
 
     private LeaseContract createLeaseContractFromResultSet(ResultSet resultSet) throws SQLException {
         LeaseContract contract = new LeaseContract();
-        contract.setId(resultSet.getInt("id"));
+        contract.setId(resultSet.getInt("lease_id"));
         contract.setDateOfContract(resultSet.getString("contract_date"));
         contract.setCustomerName(resultSet.getString("customer_name"));
         contract.setCustomerEmail(resultSet.getString("customer_email"));
@@ -99,6 +101,8 @@ public class LeaseDao {
         contract.setLeaseFee(resultSet.getDouble("lease_fee"));
         contract.setTotalPrice(resultSet.getDouble("total_price"));
         contract.setMonthlyPayment(resultSet.getDouble("monthly_payment"));
+        contract.setLeaseStart(resultSet.getString("lease_start"));
+        contract.setLeaseEnd(resultSet.getString("lease_end"));
         return contract;
     }
 }

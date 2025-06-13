@@ -2,10 +2,10 @@ package com.pluralsight.Models;
 
 public class SalesContract {
 
-    private int id;
+    private int contractId;
 
     // Contract information
-    private String dateOfContract;
+    private String saleDate;
     private String customerName;
     private String customerEmail;
     private Vehicle vehicleSold;
@@ -16,16 +16,14 @@ public class SalesContract {
     private double salesTaxAmount;
     private double recordingFee;
     private double processingFee;
-    private boolean financeOption;
+    private int financeOption;  // Stores as 1 (true) or 0 (false)
 
+    public SalesContract() {}
 
-    public SalesContract() {
-    }
-
-    public SalesContract(String dateOfContract, String customerName, String customerEmail,
+    public SalesContract(String saleDate, String customerName, String customerEmail,
                          Vehicle vehicleSold, double salesTaxAmount, double recordingFee,
-                         double processingFee, boolean financeOption) {
-        this.dateOfContract = dateOfContract;
+                         double processingFee, int financeOption) {
+        this.saleDate = saleDate;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.vehicleSold = vehicleSold;
@@ -34,25 +32,24 @@ public class SalesContract {
         this.processingFee = processingFee;
         this.financeOption = financeOption;
 
-        // Calculate totals
         calculateTotalPrice();
         calculateMonthlyPayment();
     }
 
-    public int getId() {
-        return id;
+    public int getContractId() {
+        return contractId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setContractId(int contractId) {
+        this.contractId = contractId;
     }
 
-    public String getDateOfContract() {
-        return dateOfContract;
+    public String getSaleDate() {
+        return saleDate;
     }
 
-    public void setDateOfContract(String dateOfContract) {
-        this.dateOfContract = dateOfContract;
+    public void setSaleDate(String saleDate) {
+        this.saleDate = saleDate;
     }
 
     public String getCustomerName() {
@@ -119,11 +116,11 @@ public class SalesContract {
         this.processingFee = processingFee;
     }
 
-    public boolean isFinanceOption() {
+    public int getFinanceOption() {
         return financeOption;
     }
 
-    public void setFinanceOption(boolean financeOption) {
+    public void setFinanceOption(int financeOption) {
         this.financeOption = financeOption;
     }
 
@@ -134,10 +131,11 @@ public class SalesContract {
     }
 
     public void calculateMonthlyPayment() {
-        if (financeOption && totalPrice > 0) {
+        if (financeOption == 1 && totalPrice > 0) {
             double interestRate = (vehicleSold.getPrice() >= 10000) ? 0.0425 : 0.0525;
             int months = (vehicleSold.getPrice() >= 10000) ? 48 : 24;
             double monthlyRate = interestRate / 12;
+
             monthlyPayment = (totalPrice * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
         } else {
             monthlyPayment = 0;
@@ -146,7 +144,7 @@ public class SalesContract {
 
     @Override
     public String toString() {
-        return String.format("Sales Contract - %s | %s | %s | $%.2f",
-                dateOfContract, customerName, vehicleSold.getVin(), totalPrice);
+        return String.format("Sales Contract - %s | %s | %s | $%.2f | Finance: %s",
+                saleDate, customerName, vehicleSold.getVin(), totalPrice, financeOption == 1 ? "Yes" : "No");
     }
 }

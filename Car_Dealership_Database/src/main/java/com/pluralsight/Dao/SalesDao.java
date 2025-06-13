@@ -1,7 +1,6 @@
 package com.pluralsight.Dao;
 
 import com.pluralsight.Models.SalesContract;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +18,14 @@ public class SalesDao {
     }
 
     public boolean saveSalesContract(SalesContract contract) {
-        String sql = "INSERT INTO sales_contracts (contract_date, customer_name, customer_email, vehicle_vin, " +
+        String sql = "INSERT INTO sales_contracts (sale_date, customer_name, customer_email, vehicle_vin, " +
                 "total_price, monthly_payment, sales_tax, recording_fee, processing_fee, finance_option) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            statement.setString(1, contract.getDateOfContract());
+            statement.setString(1, contract.getSaleDate());
             statement.setString(2, contract.getCustomerName());
             statement.setString(3, contract.getCustomerEmail());
             statement.setString(4, contract.getVehicleSold().getVin());
@@ -35,14 +34,14 @@ public class SalesDao {
             statement.setDouble(7, contract.getSalesTaxAmount());
             statement.setDouble(8, contract.getRecordingFee());
             statement.setDouble(9, contract.getProcessingFee());
-            statement.setBoolean(10, contract.isFinanceOption());
+            statement.setInt(10, contract.getFinanceOption());
 
             int rowsAffected = statement.executeUpdate();
 
             if (rowsAffected > 0) {
                 ResultSet generatedKeys = statement.getGeneratedKeys();
                 if (generatedKeys.next()) {
-                    contract.setId(generatedKeys.getInt(1));
+                    contract.setContractId(generatedKeys.getInt(1));
                 }
                 return true;
             }
@@ -54,13 +53,13 @@ public class SalesDao {
         return false;
     }
 
-    public SalesContract findSalesContractById(int id) {
-        String sql = "SELECT * FROM sales_contracts WHERE id = ?";
+    public SalesContract findSalesContractById(int contractId) {
+        String sql = "SELECT * FROM sales_contracts WHERE contract_id = ?";
 
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, id);
+            statement.setInt(1, contractId);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
@@ -95,8 +94,8 @@ public class SalesDao {
 
     private SalesContract createSalesContractFromResultSet(ResultSet resultSet) throws SQLException {
         SalesContract contract = new SalesContract();
-        contract.setId(resultSet.getInt("id"));
-        contract.setDateOfContract(resultSet.getString("contract_date"));
+        contract.setContractId(resultSet.getInt("contract_id"));
+        contract.setSaleDate(resultSet.getString("sale_date"));
         contract.setCustomerName(resultSet.getString("customer_name"));
         contract.setCustomerEmail(resultSet.getString("customer_email"));
         contract.setTotalPrice(resultSet.getDouble("total_price"));
@@ -104,8 +103,8 @@ public class SalesDao {
         contract.setSalesTaxAmount(resultSet.getDouble("sales_tax"));
         contract.setRecordingFee(resultSet.getDouble("recording_fee"));
         contract.setProcessingFee(resultSet.getDouble("processing_fee"));
-        contract.setFinanceOption(resultSet.getBoolean("finance_option"));
+        contract.setFinanceOption(resultSet.getInt("finance_option"));
+
         return contract;
     }
 }
-

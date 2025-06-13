@@ -4,6 +4,8 @@ public class LeaseContract {
 
     private int id;
     private String dateOfContract;
+    private String leaseStart;
+    private String leaseEnd;
     private String customerName;
     private String customerEmail;
     private Vehicle vehicleSold;
@@ -15,16 +17,18 @@ public class LeaseContract {
     public LeaseContract() {
     }
 
-    public LeaseContract(String dateOfContract, String customerName, String customerEmail,
+    public LeaseContract(String dateOfContract, String leaseStart, String leaseEnd,
+                         String customerName, String customerEmail,
                          Vehicle vehicleSold, double expectedEndingValue, double leaseFee) {
         this.dateOfContract = dateOfContract;
+        this.leaseStart = leaseStart;
+        this.leaseEnd = leaseEnd;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.vehicleSold = vehicleSold;
         this.expectedEndingValue = expectedEndingValue;
         this.leaseFee = leaseFee;
 
-        // Calculate totals
         calculateTotalPrice();
         calculateMonthlyPayment();
     }
@@ -43,6 +47,22 @@ public class LeaseContract {
 
     public void setDateOfContract(String dateOfContract) {
         this.dateOfContract = dateOfContract;
+    }
+
+    public String getLeaseStart() {
+        return leaseStart;
+    }
+
+    public void setLeaseStart(String leaseStart) {
+        this.leaseStart = leaseStart;
+    }
+
+    public String getLeaseEnd() {
+        return leaseEnd;
+    }
+
+    public void setLeaseEnd(String leaseEnd) {
+        this.leaseEnd = leaseEnd;
     }
 
     public String getCustomerName() {
@@ -109,7 +129,6 @@ public class LeaseContract {
 
     public void calculateMonthlyPayment() {
         if (totalPrice > 0) {
-            // Lease is always 36 months with 4% interest
             double monthlyRate = 0.04 / 12;
             int months = 36;
 
@@ -119,7 +138,7 @@ public class LeaseContract {
 
     @Override
     public String toString() {
-        return String.format("Lease Contract - %s | %s | %s | $%.2f",
-                dateOfContract, customerName, vehicleSold.getVin(), totalPrice);
+        return String.format("Lease Contract - %s | %s | %s | Start: %s | End: %s | $%.2f",
+                dateOfContract, customerName, vehicleSold.getVin(), leaseStart, leaseEnd, totalPrice);
     }
 }

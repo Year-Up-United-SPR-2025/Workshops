@@ -1,6 +1,5 @@
 package com.pluralsight.Dao;
 
-
 import com.pluralsight.Models.Vehicle;
 
 import java.sql.*;
@@ -262,7 +261,6 @@ public class VehicleDao {
 
     private Vehicle createVehicleFromResultSet(ResultSet resultSet) throws SQLException {
         Vehicle vehicle = new Vehicle();
-        vehicle.setId(resultSet.getInt("id"));
         vehicle.setVin(resultSet.getString("vin"));
         vehicle.setYear(resultSet.getInt("year"));
         vehicle.setMake(resultSet.getString("make"));
