@@ -33,4 +33,17 @@ public abstract class Contract {
 
     public abstract void calculateTotalPrice();
     public abstract void calculateMonthlyPayment();
+
+    @Override
+    public String toString() {
+        return "Contract{" +
+                "id=" + id +
+                ", dateOfContract='" + dateOfContract + '\'' +
+                ", customerName='" + customerName + '\'' +
+                ", customerEmail='" + customerEmail + '\'' +
+                ", vehicleSold=" + vehicleSold +
+                ", totalPrice=" + totalPrice +
+                ", monthlyPayment=" + monthlyPayment +
+                '}';
+    }
 }
