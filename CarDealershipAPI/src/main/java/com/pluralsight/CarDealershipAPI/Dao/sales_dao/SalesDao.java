@@ -1,4 +1,4 @@
-package com.pluralsight.CarDealershipAPI.Dao;
+package com.pluralsight.CarDealershipAPI.Dao.sales_dao;
 
 import com.pluralsight.Models.SalesContract;
 
