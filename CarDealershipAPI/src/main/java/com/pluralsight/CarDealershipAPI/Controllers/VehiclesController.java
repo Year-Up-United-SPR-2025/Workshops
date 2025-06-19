@@ -1,5 +1,6 @@
 package com.pluralsight.CarDealershipAPI.Controllers;
 
+import com.pluralsight.CarDealershipAPI.Dao.vehicle_dao.VehicleDao;
 import com.pluralsight.CarDealershipAPI.Models.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import java.util.List;
 public class VehiclesController {
 
     @Autowired
-    private VehicleDAO vehicleDAO;
+    private VehicleDao vehicleDao;
 
     @GetMapping
     public List<Vehicle> getVehicles(
@@ -26,22 +27,22 @@ public class VehiclesController {
             @RequestParam(required = false) Integer maxMiles,
             @RequestParam(required = false) String type) {
         // Logic to filter vehicles based on parameters
-        return vehicleDAO.findVehicles(minPrice, maxPrice, make, model, minYear, maxYear, color, minMiles, maxMiles, type);
+        return vehicleDao.findVehicles(minPrice, maxPrice, make, model, minYear, maxYear, color, minMiles, maxMiles, type);
     }
 
     @PostMapping
     public void addVehicle(@RequestBody Vehicle vehicle) {
-        vehicleDAO.addVehicle(vehicle);
+        vehicleDao.addVehicle(vehicle);
     }
 
     @PutMapping("/{id}")
     public void updateVehicle(@PathVariable Long id, @RequestBody Vehicle vehicle) {
-        vehicleDAO.updateVehicle(id, vehicle);
+        vehicleDao.updateVehicle(id, vehicle);
     }
 
     @DeleteMapping("/{id}")
     public void deleteVehicle(@PathVariable Long id) {
-        vehicleDAO.deleteVehicle(id);
+        vehicleDao.deleteVehicle(id);
     }
 }
    

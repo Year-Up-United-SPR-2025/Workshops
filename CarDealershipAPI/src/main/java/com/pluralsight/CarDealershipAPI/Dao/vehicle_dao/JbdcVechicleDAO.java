@@ -1,273 +1,357 @@
 package com.pluralsight.CarDealershipAPI.Dao.vehicle_dao;
 
+
+import com.pluralsight.CarDealershipAPI.Config.DatabaseConfig;
+import com.pluralsight.CarDealershipAPI.Models.Vehicle;
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JbdcVechicleDAO {
-    private final String connectionString;
-    private final String username;
-    private final String password;
+@Component
+public class JbdcVechicleDAO implements VehicleDao {
 
-    public VehicleDao(String connectionString, String username, String password) {
-        this.connectionString = connectionString;
-        this.username = username;
-        this.password = password;
+    private final BasicDataSource dataSource;
+
+    @Autowired
+    public JbdcVechicleDAO(DatabaseConfig databaseConfig) {
+        this.dataSource = new BasicDataSource();
+        dataSource.setUrl(databaseConfig.getUrl());
+        dataSource.setUsername(databaseConfig.getUsername());
+        dataSource.setPassword(databaseConfig.getPassword());
     }
 
-    public List<Vehicle> findByPriceRange(double minPrice, double maxPrice) {
+    @Override
+    public List<Vehicle> getAllVehicles() {
         List<Vehicle> vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM cardealership.vehicles WHERE price BETWEEN ? AND ?";
+        String query = """
+                SELECT 
+                    vehicle_id, 
+                    vin, 
+                    year, 
+                    make, 
+                    model, 
+                    type, 
+                    color, 
+                    odometer, 
+                    price, 
+                    sold
+                FROM 
+                    vehicles
+                """;
 
-        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
 
-            statement.setDouble(1, minPrice);
-            statement.setDouble(2, maxPrice);
-
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                vehicles.add(createVehicleFromResultSet(resultSet));
+            while (rs.next()) {
+                Vehicle vehicle = mapRowToVehicle(rs);
+                vehicles.add(vehicle);
             }
-
         } catch (SQLException e) {
-            System.err.println("Error searching vehicles by price range: " + e.getMessage());
+            throw new RuntimeException("Error fetching all vehicles", e);
         }
-
         return vehicles;
     }
 
-    public List<Vehicle> findByMakeModel(String make, String model) {
-        List<Vehicle> vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM cardealership.vehicles WHERE make = ? AND model = ?";
+    @Override
+    public Vehicle getVehicleById(int vehicleId) {
+        String query = """
+                SELECT 
+                    vehicle_id, 
+                    vin, 
+                    year, 
+                    make, 
+                    model, 
+                    type, 
+                    color, 
+                    odometer, 
+                    price, 
+                    sold
+                FROM 
+                    vehicles
+                WHERE 
+                    vehicle_id = ?
+                """;
 
-        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
 
-            statement.setString(1, make);
-            statement.setString(2, model);
-
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                vehicles.add(createVehicleFromResultSet(resultSet));
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Error searching vehicles by make/model: " + e.getMessage());
-        }
-
-        return vehicles;
-    }
-
-    public List<Vehicle> findByYearRange(int startYear, int endYear) {
-        List<Vehicle> vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM cardealership.vehicles WHERE year BETWEEN ? AND ?";
-
-        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            statement.setInt(1, startYear);
-            statement.setInt(2, endYear);
-
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                vehicles.add(createVehicleFromResultSet(resultSet));
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Error searching vehicles by year range: " + e.getMessage());
-        }
-
-        return vehicles;
-    }
-
-    public List<Vehicle> findByColor(String color) {
-        List<Vehicle> vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM cardealership.vehicles WHERE color = ?";
-
-        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            statement.setString(1, color);
-
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                vehicles.add(createVehicleFromResultSet(resultSet));
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Error searching vehicles by color: " + e.getMessage());
-        }
-
-        return vehicles;
-    }
-
-    public List<Vehicle> findByMileageRange(int minMileage, int maxMileage) {
-        List<Vehicle> vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM cardealership.vehicles WHERE odometer BETWEEN ? AND ?";
-
-        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            statement.setInt(1, minMileage);
-            statement.setInt(2, maxMileage);
-
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                vehicles.add(createVehicleFromResultSet(resultSet));
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Error searching vehicles by mileage range: " + e.getMessage());
-        }
-
-        return vehicles;
-    }
-
-    public List<Vehicle> findByType(String vehicleType) {
-        List<Vehicle> vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM cardealership.vehicles WHERE vehicle_type = ?";
-
-        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            statement.setString(1, vehicleType);
-
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                vehicles.add(createVehicleFromResultSet(resultSet));
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Error searching vehicles by type: " + e.getMessage());
-        }
-
-        return vehicles;
-    }
-
-    public boolean addVehicle(Vehicle vehicle) {
-        String sql = "INSERT INTO cardealership.vehicles (vin, year, make, model, vehicle_type, color, odometer, price, sold, dealership_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
-             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
-            statement.setString(1, vehicle.getVin());
-            statement.setString(2, vehicle.getMake());
-            statement.setString(3, vehicle.getModel());
-            statement.setInt(4, vehicle.getYear());
-            statement.setString(5, vehicle.getColor());
-            statement.setDouble(6, vehicle.getPrice());
-            statement.setBoolean(7, vehicle.isSold());
-            statement.setInt(8, vehicle.getDealershipId());
-            statement.setString(9, vehicle.getVehicleType());
-            statement.setInt(10, vehicle.getOdometer());
-
-            int rowsAffected = statement.executeUpdate();
-
-            if (rowsAffected > 0) {
-                ResultSet generatedKeys = statement.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    vehicle.setId(generatedKeys.getInt(1));
+            ps.setInt(1, vehicleId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapRowToVehicle(rs);
                 }
-                return true;
             }
-
         } catch (SQLException e) {
-            System.err.println("Error adding vehicle: " + e.getMessage());
+            throw new RuntimeException("Error fetching vehicle by ID: " + vehicleId, e);
         }
-
-        return false;
-    }
-
-    public boolean removeVehicle(String vin) {
-        String sql = "DELETE FROM cardealership.vehicles WHERE vin = ?";
-
-        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            statement.setString(1, vin);
-            int rowsAffected = statement.executeUpdate();
-            return rowsAffected > 0;
-
-        } catch (SQLException e) {
-            System.err.println("Error removing vehicle: " + e.getMessage());
-        }
-
-        return false;
-    }
-
-    public Vehicle findByVin(String vin) {
-        String sql = "SELECT * FROM cardealership.vehicles WHERE vin = ?";
-
-        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            statement.setString(1, vin);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                return createVehicleFromResultSet(resultSet);
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Error finding vehicle by VIN: " + e.getMessage());
-        }
-
         return null;
     }
 
-    public List<Vehicle> getAllVehicles() {
-        List<Vehicle> vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM cardealership.vehicles";
+    @Override
+    public Vehicle getVehicleByVin(String vin) {
+        String query = """
+                SELECT 
+                    vehicle_id, 
+                    vin, 
+                    year, 
+                    make, 
+                    model, 
+                    type, 
+                    color, 
+                    odometer, 
+                    price, 
+                    sold
+                FROM 
+                    vehicles
+                WHERE 
+                    vin = ?
+                """;
 
-        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
 
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                vehicles.add(createVehicleFromResultSet(resultSet));
+            ps.setString(1, vin);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapRowToVehicle(rs);
+                }
             }
-
         } catch (SQLException e) {
-            System.err.println("Error getting all vehicles: " + e.getMessage());
+            throw new RuntimeException("Error fetching vehicle by VIN: " + vin, e);
         }
+        return null;
+    }
 
+    @Override
+    public List<Vehicle> getVehiclesByPriceRange(double minPrice, double maxPrice) {
+        List<Vehicle> vehicles = new ArrayList<>();
+        String query = """
+                SELECT 
+                    vehicle_id, 
+                    vin, 
+                    year, 
+                    make, 
+                    model, 
+                    type, 
+                    color, 
+                    odometer, 
+                    price, 
+                    sold
+                FROM 
+                    vehicles
+                WHERE 
+                    price BETWEEN ? AND ?
+                """;
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setDouble(1, minPrice);
+            ps.setDouble(2, maxPrice);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    vehicles.add(mapRowToVehicle(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching vehicles by price range", e);
+        }
         return vehicles;
     }
 
-    public List<Vehicle> getVehiclesByDealership(int dealershipId) {
+    @Override
+    public List<Vehicle> getVehiclesByMake(String make) {
         List<Vehicle> vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM cardealership.vehicles WHERE dealership_id = ?";
+        String query = """
+                SELECT 
+                    vehicle_id, 
+                    vin, 
+                    year, 
+                    make, 
+                    model, 
+                    type, 
+                    color, 
+                    odometer, 
+                    price, 
+                    sold
+                FROM 
+                    vehicles
+                WHERE 
+                    make = ?
+                """;
 
-        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
 
-            statement.setInt(1, dealershipId);
-            ResultSet resultSet = statement.executeQuery();
+            ps.setString(1, make);
 
-            while (resultSet.next()) {
-                vehicles.add(createVehicleFromResultSet(resultSet));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    vehicles.add(mapRowToVehicle(rs));
+                }
             }
-
         } catch (SQLException e) {
-            System.err.println("Error getting vehicles by dealership: " + e.getMessage());
+            throw new RuntimeException("Error fetching vehicles by make: " + make, e);
         }
-
         return vehicles;
     }
 
-    private Vehicle createVehicleFromResultSet(ResultSet resultSet) throws SQLException {
+    @Override
+    public List<Vehicle> getVehiclesByModel(String model) {
+        List<Vehicle> vehicles = new ArrayList<>();
+        String query = """
+                SELECT 
+                    vehicle_id, 
+                    vin, 
+                    year, 
+                    make, 
+                    model, 
+                    type, 
+                    color, 
+                    odometer, 
+                    price, 
+                    sold
+                FROM 
+                    vehicles
+                WHERE 
+                    model = ?
+                """;
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, model);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    vehicles.add(mapRowToVehicle(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching vehicles by model: " + model, e);
+        }
+        return vehicles;
+    }
+
+    @Override
+    public Vehicle addVehicle(Vehicle vehicle) {
+        String query = """
+                INSERT INTO vehicles 
+                    (vin, year, make, model, type, color, odometer, price, sold) 
+                VALUES 
+                    (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """;
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setString(1, vehicle.getVin());
+            ps.setInt(2, vehicle.getYear());
+            ps.setString(3, vehicle.getMake());
+            ps.setString(4, vehicle.getModel());
+            ps.setString(5, vehicle.getType());
+            ps.setString(6, vehicle.getColor());
+            ps.setInt(7, vehicle.getOdometer());
+            ps.setDouble(8, vehicle.getPrice());
+            ps.setBoolean(9, vehicle.isSold());
+
+            int affectedRows = ps.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating vehicle failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    vehicle.setVehicleId(generatedKeys.getInt(1));
+                    return vehicle;
+                } else {
+                    throw new SQLException("Creating vehicle failed, no ID obtained.");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error adding vehicle", e);
+        }
+    }
+
+    @Override
+    public boolean updateVehicle(Vehicle vehicle) {
+        String query = """
+                UPDATE vehicles SET
+                    vin = ?,
+                    year = ?,
+                    make = ?,
+                    model = ?,
+                    type = ?,
+                    color = ?,
+                    odometer = ?,
+                    price = ?,
+                    sold = ?
+                WHERE 
+                    vehicle_id = ?
+                """;
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, vehicle.getVin());
+            ps.setInt(2, vehicle.getYear());
+            ps.setString(3, vehicle.getMake());
+            ps.setString(4, vehicle.getModel());
+            ps.setString(5, vehicle.getType());
+            ps.setString(6, vehicle.getColor());
+            ps.setInt(7, vehicle.getOdometer());
+            ps.setDouble(8, vehicle.getPrice());
+            ps.setBoolean(9, vehicle.isSold());
+            ps.setInt(10, vehicle.getVehicleId());
+
+            int affectedRows = ps.executeUpdate();
+            return affectedRows > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating vehicle ID: " + vehicle.getVehicleId(), e);
+        }
+    }
+
+    @Override
+    public boolean deleteVehicle(int vehicleId) {
+        String query = "DELETE FROM vehicles WHERE vehicle_id = ?";
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, vehicleId);
+            int affectedRows = ps.executeUpdate();
+            return affectedRows > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting vehicle ID: " + vehicleId, e);
+        }
+    }
+
+    @Override
+    public List<Vehicle> findVehicles(Integer minPrice, Integer maxPrice, String make, String model, Integer minYear, Integer maxYear, String color, Integer minMiles, Integer maxMiles, String type) {
+        return List.of();
+    }
+
+    private Vehicle mapRowToVehicle(ResultSet rs) throws SQLException {
         Vehicle vehicle = new Vehicle();
-        vehicle.setVin(resultSet.getString("vin"));
-        vehicle.setMake(resultSet.getString("make"));
-        vehicle.setModel(resultSet.getString("model"));
-        vehicle.setYear(resultSet.getInt("year"));
-        vehicle.setColor(resultSet.getString("color"));
-        vehicle.setPrice(resultSet.getDouble("price"));
-        vehicle.setSold(resultSet.getBoolean("sold"));
-        vehicle.setDealershipId(resultSet.getInt("dealershipId"));
-        vehicle.setVehicleType(resultSet.getString("vehicleType"));
-        vehicle.setOdometer(resultSet.getInt("odometer"));
+        vehicle.setVehicleId(rs.getInt("vehicle_id"));
+        vehicle.setVin(rs.getString("vin"));
+        vehicle.setYear(rs.getInt("year"));
+        vehicle.setMake(rs.getString("make"));
+        vehicle.setModel(rs.getString("model"));
+        vehicle.setType(rs.getString("type"));
+        vehicle.setColor(rs.getString("color"));
+        vehicle.setOdometer(rs.getInt("odometer"));
+        vehicle.setPrice(rs.getDouble("price"));
+        vehicle.setSold(rs.getBoolean("sold"));
         return vehicle;
     }
 }
