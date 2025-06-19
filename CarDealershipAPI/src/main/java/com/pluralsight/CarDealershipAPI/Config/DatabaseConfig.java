@@ -9,10 +9,9 @@ public class DatabaseConfig {
     private String password;
     private String url;
 
-
-    public DatabaseConfig(@Value("${datasource.username}") String username,
-                          @Value("${datasource.password}") String password,
-                          @Value("${datasource.url}") String url) {
+    public DatabaseConfig(@Value("${spring.datasource.username}") String username,
+                          @Value("${spring.datasource.password}") String password,
+                          @Value("${spring.datasource.url}") String url) {
         this.username = username;
         this.password = password;
         this.url = url;

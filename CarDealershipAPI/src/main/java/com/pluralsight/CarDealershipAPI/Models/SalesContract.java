@@ -1,48 +1,43 @@
 package com.pluralsight.CarDealershipAPI.Models;
 
 public class SalesContract {
-
     private int contractId;
-
-    // Contract information
     private String saleDate;
     private String customerName;
     private String customerEmail;
-    private Vehicle vehicleSold;
-    private String vehicleVin; // Added vehicle VIN
-
-    // Financial information
+    private String vehicleVin;
     private double totalPrice;
     private double monthlyPayment;
     private double salesTaxAmount;
     private double recordingFee;
     private double processingFee;
-    private int financeOption;  // Stores as 1 (true) or 0 (false)
-    private double salePrice; // Added sale price
+    private int financeOption;
+    private double salePrice;
 
-    public SalesContract() {}
-
-    public SalesContract(String saleDate, String customerName, String customerEmail,
-                         Vehicle vehicleSold, String vehicleVin, double salePrice, double salesTaxAmount,
-                         double recordingFee, double processingFee, int financeOption) {
+    // Constructor
+    public SalesContract(int contractId, String saleDate, String customerName, String customerEmail,
+                         String vehicleVin, double totalPrice, double monthlyPayment,
+                         double salesTaxAmount, double recordingFee, double processingFee,
+                         int financeOption, double salePrice) {
+        this.contractId = contractId;
         this.saleDate = saleDate;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
-        this.vehicleSold = vehicleSold;
         this.vehicleVin = vehicleVin;
-        this.salePrice = salePrice;
+        this.totalPrice = totalPrice;
+        this.monthlyPayment = monthlyPayment;
         this.salesTaxAmount = salesTaxAmount;
         this.recordingFee = recordingFee;
         this.processingFee = processingFee;
         this.financeOption = financeOption;
-
-        calculateTotalPrice();
-        calculateMonthlyPayment();
+        this.salePrice = salePrice;
     }
 
-    public SalesContract(String contractDate, String customerName, String customerEmail, Vehicle vehicle, double salesTax, double recordingFee, double processingFee, int financeOption) {
+    public SalesContract() {
+
     }
 
+    // Getters and Setters
     public int getContractId() {
         return contractId;
     }
@@ -75,28 +70,12 @@ public class SalesContract {
         this.customerEmail = customerEmail;
     }
 
-    public Vehicle getVehicleSold() {
-        return vehicleSold;
-    }
-
-    public void setVehicleSold(Vehicle vehicleSold) {
-        this.vehicleSold = vehicleSold;
-    }
-
     public String getVehicleVin() {
         return vehicleVin;
     }
 
     public void setVehicleVin(String vehicleVin) {
         this.vehicleVin = vehicleVin;
-    }
-
-    public double getSalePrice() {
-        return salePrice;
-    }
-
-    public void setSalePrice(double salePrice) {
-        this.salePrice = salePrice;
     }
 
     public double getTotalPrice() {
@@ -147,31 +126,11 @@ public class SalesContract {
         this.financeOption = financeOption;
     }
 
-    public boolean isFinanceOption() {
-        return financeOption == 1;
+    public double getSalePrice() {
+        return salePrice;
     }
 
-    public void calculateTotalPrice() {
-        if (vehicleSold != null) {
-            totalPrice = salePrice + salesTaxAmount + recordingFee + processingFee;
-        }
-    }
-
-    public void calculateMonthlyPayment() {
-        if (financeOption == 1 && totalPrice > 0) {
-            double interestRate = (salePrice >= 10000) ? 0.0425 : 0.0525;
-            int months = (salePrice >= 10000) ? 48 : 24;
-            double monthlyRate = interestRate / 12;
-
-            monthlyPayment = (totalPrice * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
-        } else {
-            monthlyPayment = 0;
-        }
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Sales Contract - %s | %s | %s | $%.2f | Finance: %s",
-                saleDate, customerName, vehicleVin, totalPrice, financeOption == 1 ? "Yes" : "No");
+    public void setSalePrice(double salePrice) {
+        this.salePrice = salePrice;
     }
 }
