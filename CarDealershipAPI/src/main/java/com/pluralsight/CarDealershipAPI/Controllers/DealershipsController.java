@@ -22,52 +22,32 @@ public class DealershipsController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Dealership>> getAllDealerships() {
-        return ResponseEntity.ok(dealershipDao.getAllDealerships());
+    public List<Dealership> getAllDealerships() {
+        return dealershipDao.getAllDealerships();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Dealership> getDealershipById(@PathVariable int id) {
         Dealership dealership = dealershipDao.getDealershipById(id);
-        return dealership != null ?
-                ResponseEntity.ok(dealership) :
-                ResponseEntity.notFound().build();
-    }
-
-    @GetMapping("/name/{name}")
-    public ResponseEntity<Dealership> getDealershipByName(@PathVariable String name) {
-        Dealership dealership = dealershipDao.getDealershipByName(name);
-        return dealership != null ?
-                ResponseEntity.ok(dealership) :
-                ResponseEntity.notFound().build();
+        return ResponseEntity.ok(dealership);
     }
 
     @PostMapping
     public ResponseEntity<Dealership> addDealership(@RequestBody Dealership dealership) {
-        Dealership addedDealership = dealershipDao.addDealership(dealership);
-        return ResponseEntity.status(HttpStatus.CREATED).body(addedDealership);
+        Dealership savedDealership = dealershipDao.addDealership(dealership);
+        return new ResponseEntity<>(savedDealership, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Dealership> updateDealership(
-            @PathVariable int id,
-            @RequestBody Dealership dealership) {
-
-        if (dealership.getDealershipId() != id) {
-            return ResponseEntity.badRequest().build();
-        }
-
+    public ResponseEntity<Dealership> updateDealership(@PathVariable int id, @RequestBody Dealership dealership) {
+        dealership.setDealershipId(id);
         boolean updated = dealershipDao.updateDealership(dealership);
-        return updated ?
-                ResponseEntity.ok(dealership) :
-                ResponseEntity.notFound().build();
+        return updated ? ResponseEntity.ok(dealership) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDealership(@PathVariable int id) {
         boolean deleted = dealershipDao.deleteDealership(id);
-        return deleted ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.notFound().build();
+        return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 }

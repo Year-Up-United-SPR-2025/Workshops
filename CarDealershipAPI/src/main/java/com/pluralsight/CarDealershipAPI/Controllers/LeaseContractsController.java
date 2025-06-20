@@ -69,6 +69,7 @@ public class LeaseContractsController {
             @PathVariable int id,
             @RequestBody LeaseContract leaseContract) {
 
+        // Ensure the ID in the path matches the ID in the leaseContract object
         if (leaseContract.getLeaseId() != id) {
             return ResponseEntity.badRequest().build();
         }

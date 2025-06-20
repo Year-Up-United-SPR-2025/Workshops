@@ -4,12 +4,14 @@ import com.pluralsight.CarDealershipAPI.Config.DatabaseConfig;
 import com.pluralsight.CarDealershipAPI.Models.Dealership;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Primary
 @Component
 public class JdbcDealershipDAO implements DealershipDao {
 
