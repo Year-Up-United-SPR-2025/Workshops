@@ -14,7 +14,7 @@ public class SimpleVehicleDao implements VehicleDao {
     private int nextId = 1;
 
     public SimpleVehicleDao() {
-        // Initialize with some sample vehicles
+        // Initialize with sample data
         vehicles.add(new Vehicle("1HGCM82633A123456", 2022, "Toyota", "Camry",
                 "Sedan", "Blue", 15000, 24999.99, false));
         vehicles.add(new Vehicle("JH4KB2F56CC123456", 2021, "Honda", "Accord",
@@ -67,6 +67,27 @@ public class SimpleVehicleDao implements VehicleDao {
     public List<Vehicle> getVehiclesByModel(String model) {
         return vehicles.stream()
                 .filter(v -> v.getModel().equalsIgnoreCase(model))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Vehicle> getVehiclesByYearRange(int minYear, int maxYear) {
+        return vehicles.stream()
+                .filter(v -> v.getYear() >= minYear && v.getYear() <= maxYear)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Vehicle> getVehiclesByColor(String color) {
+        return vehicles.stream()
+                .filter(v -> v.getColor().equalsIgnoreCase(color))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Vehicle> getVehiclesByType(String type) {
+        return vehicles.stream()
+                .filter(v -> v.getType().equalsIgnoreCase(type))
                 .collect(Collectors.toList());
     }
 

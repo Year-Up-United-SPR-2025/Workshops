@@ -10,9 +10,10 @@ public interface VehicleDao {
     List<Vehicle> getVehiclesByPriceRange(double minPrice, double maxPrice);
     List<Vehicle> getVehiclesByMake(String make);
     List<Vehicle> getVehiclesByModel(String model);
+    List<Vehicle> getVehiclesByYearRange(int minYear, int maxYear);
+    List<Vehicle> getVehiclesByColor(String color);
+    List<Vehicle> getVehiclesByType(String type);
     Vehicle addVehicle(Vehicle vehicle);
     boolean updateVehicle(Vehicle vehicle);
     boolean deleteVehicle(int vehicleId);
-
-    List<Vehicle> findVehicles(Integer minPrice, Integer maxPrice, String make, String model, Integer minYear, Integer maxYear, String color, Integer minMiles, Integer maxMiles, String type);
 }

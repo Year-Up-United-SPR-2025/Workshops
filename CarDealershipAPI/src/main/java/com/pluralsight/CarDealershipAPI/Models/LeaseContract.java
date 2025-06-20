@@ -1,144 +1,64 @@
 package com.pluralsight.CarDealershipAPI.Models;
 
+import java.time.LocalDate;
+
 public class LeaseContract {
-
-    private int id;
-    private String dateOfContract;
-    private String leaseStart;
-    private String leaseEnd;
-    private String customerName;
-    private String customerEmail;
-    private Vehicle vehicleSold;
-    private double expectedEndingValue;
-    private double leaseFee;
-    private double totalPrice;
+    private int leaseId;
+    private String vehicleVin;
+    private int customerId;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private double monthlyPayment;
+    private double totalPrice;
+    private double salesTax;
+    private double recordingFee;
+    private double processingFee;
 
-    public LeaseContract() {
-    }
+    // Constructors
+    public LeaseContract() {}
 
-    public LeaseContract(String dateOfContract, String leaseStart, String leaseEnd,
-                         String customerName, String customerEmail,
-                         Vehicle vehicleSold, double expectedEndingValue, double leaseFee) {
-        this.dateOfContract = dateOfContract;
-        this.leaseStart = leaseStart;
-        this.leaseEnd = leaseEnd;
-        this.customerName = customerName;
-        this.customerEmail = customerEmail;
-        this.vehicleSold = vehicleSold;
-        this.expectedEndingValue = expectedEndingValue;
-        this.leaseFee = leaseFee;
-
-        calculateTotalPrice();
-        calculateMonthlyPayment();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getDateOfContract() {
-        return dateOfContract;
-    }
-
-    public void setDateOfContract(String dateOfContract) {
-        this.dateOfContract = dateOfContract;
-    }
-
-    public String getLeaseStart() {
-        return leaseStart;
-    }
-
-    public void setLeaseStart(String leaseStart) {
-        this.leaseStart = leaseStart;
-    }
-
-    public String getLeaseEnd() {
-        return leaseEnd;
-    }
-
-    public void setLeaseEnd(String leaseEnd) {
-        this.leaseEnd = leaseEnd;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCustomerEmail() {
-        return customerEmail;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
-    }
-
-    public Vehicle getVehicleSold() {
-        return vehicleSold;
-    }
-
-    public void setVehicleSold(Vehicle vehicleSold) {
-        this.vehicleSold = vehicleSold;
-    }
-
-    public double getExpectedEndingValue() {
-        return expectedEndingValue;
-    }
-
-    public void setExpectedEndingValue(double expectedEndingValue) {
-        this.expectedEndingValue = expectedEndingValue;
-    }
-
-    public double getLeaseFee() {
-        return leaseFee;
-    }
-
-    public void setLeaseFee(double leaseFee) {
-        this.leaseFee = leaseFee;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public double getMonthlyPayment() {
-        return monthlyPayment;
-    }
-
-    public void setMonthlyPayment(double monthlyPayment) {
+    public LeaseContract(String vehicleVin, int customerId, LocalDate startDate,
+                         LocalDate endDate, double monthlyPayment, double totalPrice,
+                         double salesTax, double recordingFee, double processingFee) {
+        this.vehicleVin = vehicleVin;
+        this.customerId = customerId;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.monthlyPayment = monthlyPayment;
+        this.totalPrice = totalPrice;
+        this.salesTax = salesTax;
+        this.recordingFee = recordingFee;
+        this.processingFee = processingFee;
     }
 
-    public void calculateTotalPrice() {
-        if (vehicleSold != null) {
-            totalPrice = (vehicleSold.getPrice() - expectedEndingValue) + leaseFee;
-        }
-    }
+    // Getters and Setters
+    public int getLeaseId() { return leaseId; }
+    public void setLeaseId(int leaseId) { this.leaseId = leaseId; }
 
-    public void calculateMonthlyPayment() {
-        if (totalPrice > 0) {
-            double monthlyRate = 0.04 / 12;
-            int months = 36;
+    public String getVehicleVin() { return vehicleVin; }
+    public void setVehicleVin(String vehicleVin) { this.vehicleVin = vehicleVin; }
 
-            monthlyPayment = (totalPrice * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
-        }
-    }
+    public int getCustomerId() { return customerId; }
+    public void setCustomerId(int customerId) { this.customerId = customerId; }
 
-    @Override
-    public String toString() {
-        return String.format("Lease Contract - %s | %s | %s | Start: %s | End: %s | $%.2f",
-                dateOfContract, customerName, vehicleSold.getVin(), leaseStart, leaseEnd, totalPrice);
-    }
+    public LocalDate getStartDate() { return startDate; }
+    public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
+
+    public LocalDate getEndDate() { return endDate; }
+    public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
+
+    public double getMonthlyPayment() { return monthlyPayment; }
+    public void setMonthlyPayment(double monthlyPayment) { this.monthlyPayment = monthlyPayment; }
+
+    public double getTotalPrice() { return totalPrice; }
+    public void setTotalPrice(double totalPrice) { this.totalPrice = totalPrice; }
+
+    public double getSalesTax() { return salesTax; }
+    public void setSalesTax(double salesTax) { this.salesTax = salesTax; }
+
+    public double getRecordingFee() { return recordingFee; }
+    public void setRecordingFee(double recordingFee) { this.recordingFee = recordingFee; }
+
+    public double getProcessingFee() { return processingFee; }
+    public void setProcessingFee(double processingFee) { this.processingFee = processingFee; }
 }

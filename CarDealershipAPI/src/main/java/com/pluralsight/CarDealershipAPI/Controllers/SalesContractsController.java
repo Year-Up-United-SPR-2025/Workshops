@@ -3,18 +3,19 @@ package com.pluralsight.CarDealershipAPI.Controllers;
 import com.pluralsight.CarDealershipAPI.Dao.sales_dao.SalesDao;
 import com.pluralsight.CarDealershipAPI.Models.SalesContract;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/sales-contracts")
+@RequestMapping("/api/sales_contracts")
 public class SalesContractsController {
 
     private final SalesDao salesDao;
 
     @Autowired
-    public SalesContractsController(SalesDao salesDao) {
+    public SalesContractsController(@Qualifier("salesJdbcDao") SalesDao salesDao) {
         this.salesDao = salesDao;
     }
 

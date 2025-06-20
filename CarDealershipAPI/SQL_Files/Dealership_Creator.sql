@@ -1,7 +1,13 @@
+-- Drop the database if it exists
 DROP DATABASE IF EXISTS CarDealership;
+
+-- Create the database
 CREATE DATABASE CarDealership;
+
+-- Use the newly created database
 USE CarDealership;
 
+-- Create the dealerships table
 CREATE TABLE dealerships (
     dealership_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
@@ -9,6 +15,7 @@ CREATE TABLE dealerships (
     phone VARCHAR(12) NOT NULL
 );
 
+-- Create the vehicles table
 CREATE TABLE vehicles (
     VIN VARCHAR(17) PRIMARY KEY,
     make VARCHAR(30) NOT NULL,
@@ -23,6 +30,7 @@ CREATE TABLE vehicles (
     FOREIGN KEY (dealershipId) REFERENCES dealerships(dealership_id)
 );
 
+-- Create the inventory table
 CREATE TABLE inventory (
     dealership_id INT,
     VIN VARCHAR(17),
@@ -31,6 +39,7 @@ CREATE TABLE inventory (
     FOREIGN KEY (VIN) REFERENCES vehicles(VIN)
 );
 
+-- Create the sales_contracts table
 CREATE TABLE sales_contracts (
     contract_id INT AUTO_INCREMENT PRIMARY KEY,
     VIN VARCHAR(17),
@@ -47,6 +56,7 @@ CREATE TABLE sales_contracts (
     FOREIGN KEY (VIN) REFERENCES vehicles(VIN)
 );
 
+-- Create the lease_contracts table
 CREATE TABLE lease_contracts (
     lease_id INT AUTO_INCREMENT PRIMARY KEY,
     VIN VARCHAR(17),
@@ -60,3 +70,4 @@ CREATE TABLE lease_contracts (
     monthly_payment DECIMAL(10,2),
     FOREIGN KEY (VIN) REFERENCES vehicles(VIN)
 );
+

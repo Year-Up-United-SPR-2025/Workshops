@@ -1,23 +1,24 @@
 package com.pluralsight.CarDealershipAPI.Dao.vehicle_dao;
 
-
 import com.pluralsight.CarDealershipAPI.Config.DatabaseConfig;
 import com.pluralsight.CarDealershipAPI.Models.Vehicle;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Primary
 @Component
-public class JbdcVechicleDAO implements VehicleDao {
+public class JdbcVehicleDAO implements VehicleDao {
 
     private final BasicDataSource dataSource;
 
     @Autowired
-    public JbdcVechicleDAO(DatabaseConfig databaseConfig) {
+    public JdbcVehicleDAO(DatabaseConfig databaseConfig) {
         this.dataSource = new BasicDataSource();
         dataSource.setUrl(databaseConfig.getUrl());
         dataSource.setUsername(databaseConfig.getUsername());
@@ -28,19 +29,9 @@ public class JbdcVechicleDAO implements VehicleDao {
     public List<Vehicle> getAllVehicles() {
         List<Vehicle> vehicles = new ArrayList<>();
         String query = """
-                SELECT 
-                    vehicle_id, 
-                    vin, 
-                    year, 
-                    make, 
-                    model, 
-                    type, 
-                    color, 
-                    odometer, 
-                    price, 
-                    sold
-                FROM 
-                    vehicles
+                SELECT vehicle_id, vin, year, make, model, type, color, 
+                       odometer, price, sold 
+                FROM vehicles
                 """;
 
         try (Connection conn = dataSource.getConnection();
@@ -48,8 +39,7 @@ public class JbdcVechicleDAO implements VehicleDao {
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Vehicle vehicle = mapRowToVehicle(rs);
-                vehicles.add(vehicle);
+                vehicles.add(mapRowToVehicle(rs));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error fetching all vehicles", e);
@@ -60,21 +50,10 @@ public class JbdcVechicleDAO implements VehicleDao {
     @Override
     public Vehicle getVehicleById(int vehicleId) {
         String query = """
-                SELECT 
-                    vehicle_id, 
-                    vin, 
-                    year, 
-                    make, 
-                    model, 
-                    type, 
-                    color, 
-                    odometer, 
-                    price, 
-                    sold
-                FROM 
-                    vehicles
-                WHERE 
-                    vehicle_id = ?
+                SELECT vehicle_id, vin, year, make, model, type, color, 
+                       odometer, price, sold 
+                FROM vehicles 
+                WHERE vehicle_id = ?
                 """;
 
         try (Connection conn = dataSource.getConnection();
@@ -95,21 +74,10 @@ public class JbdcVechicleDAO implements VehicleDao {
     @Override
     public Vehicle getVehicleByVin(String vin) {
         String query = """
-                SELECT 
-                    vehicle_id, 
-                    vin, 
-                    year, 
-                    make, 
-                    model, 
-                    type, 
-                    color, 
-                    odometer, 
-                    price, 
-                    sold
-                FROM 
-                    vehicles
-                WHERE 
-                    vin = ?
+                SELECT vehicle_id, vin, year, make, model, type, color, 
+                       odometer, price, sold 
+                FROM vehicles 
+                WHERE vin = ?
                 """;
 
         try (Connection conn = dataSource.getConnection();
@@ -131,21 +99,10 @@ public class JbdcVechicleDAO implements VehicleDao {
     public List<Vehicle> getVehiclesByPriceRange(double minPrice, double maxPrice) {
         List<Vehicle> vehicles = new ArrayList<>();
         String query = """
-                SELECT 
-                    vehicle_id, 
-                    vin, 
-                    year, 
-                    make, 
-                    model, 
-                    type, 
-                    color, 
-                    odometer, 
-                    price, 
-                    sold
-                FROM 
-                    vehicles
-                WHERE 
-                    price BETWEEN ? AND ?
+                SELECT vehicle_id, vin, year, make, model, type, color, 
+                       odometer, price, sold 
+                FROM vehicles 
+                WHERE price BETWEEN ? AND ?
                 """;
 
         try (Connection conn = dataSource.getConnection();
@@ -169,21 +126,10 @@ public class JbdcVechicleDAO implements VehicleDao {
     public List<Vehicle> getVehiclesByMake(String make) {
         List<Vehicle> vehicles = new ArrayList<>();
         String query = """
-                SELECT 
-                    vehicle_id, 
-                    vin, 
-                    year, 
-                    make, 
-                    model, 
-                    type, 
-                    color, 
-                    odometer, 
-                    price, 
-                    sold
-                FROM 
-                    vehicles
-                WHERE 
-                    make = ?
+                SELECT vehicle_id, vin, year, make, model, type, color, 
+                       odometer, price, sold 
+                FROM vehicles 
+                WHERE make = ?
                 """;
 
         try (Connection conn = dataSource.getConnection();
@@ -206,21 +152,10 @@ public class JbdcVechicleDAO implements VehicleDao {
     public List<Vehicle> getVehiclesByModel(String model) {
         List<Vehicle> vehicles = new ArrayList<>();
         String query = """
-                SELECT 
-                    vehicle_id, 
-                    vin, 
-                    year, 
-                    make, 
-                    model, 
-                    type, 
-                    color, 
-                    odometer, 
-                    price, 
-                    sold
-                FROM 
-                    vehicles
-                WHERE 
-                    model = ?
+                SELECT vehicle_id, vin, year, make, model, type, color, 
+                       odometer, price, sold 
+                FROM vehicles 
+                WHERE model = ?
                 """;
 
         try (Connection conn = dataSource.getConnection();
@@ -240,12 +175,90 @@ public class JbdcVechicleDAO implements VehicleDao {
     }
 
     @Override
+    public List<Vehicle> getVehiclesByYearRange(int minYear, int maxYear) {
+        List<Vehicle> vehicles = new ArrayList<>();
+        String query = """
+                SELECT vehicle_id, vin, year, make, model, type, color, 
+                       odometer, price, sold 
+                FROM vehicles 
+                WHERE year BETWEEN ? AND ?
+                """;
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, minYear);
+            ps.setInt(2, maxYear);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    vehicles.add(mapRowToVehicle(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching vehicles by year range", e);
+        }
+        return vehicles;
+    }
+
+    @Override
+    public List<Vehicle> getVehiclesByColor(String color) {
+        List<Vehicle> vehicles = new ArrayList<>();
+        String query = """
+                SELECT vehicle_id, vin, year, make, model, type, color, 
+                       odometer, price, sold 
+                FROM vehicles 
+                WHERE color = ?
+                """;
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, color);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    vehicles.add(mapRowToVehicle(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching vehicles by color: " + color, e);
+        }
+        return vehicles;
+    }
+
+    @Override
+    public List<Vehicle> getVehiclesByType(String type) {
+        List<Vehicle> vehicles = new ArrayList<>();
+        String query = """
+                SELECT vehicle_id, vin, year, make, model, type, color, 
+                       odometer, price, sold 
+                FROM vehicles 
+                WHERE type = ?
+                """;
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, type);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    vehicles.add(mapRowToVehicle(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching vehicles by type: " + type, e);
+        }
+        return vehicles;
+    }
+
+    @Override
     public Vehicle addVehicle(Vehicle vehicle) {
         String query = """
                 INSERT INTO vehicles 
-                    (vin, year, make, model, type, color, odometer, price, sold) 
-                VALUES 
-                    (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                (vin, year, make, model, type, color, odometer, price, sold) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """;
 
         try (Connection conn = dataSource.getConnection();
@@ -293,8 +306,7 @@ public class JbdcVechicleDAO implements VehicleDao {
                     odometer = ?,
                     price = ?,
                     sold = ?
-                WHERE 
-                    vehicle_id = ?
+                WHERE vehicle_id = ?
                 """;
 
         try (Connection conn = dataSource.getConnection();
@@ -333,11 +345,6 @@ public class JbdcVechicleDAO implements VehicleDao {
         } catch (SQLException e) {
             throw new RuntimeException("Error deleting vehicle ID: " + vehicleId, e);
         }
-    }
-
-    @Override
-    public List<Vehicle> findVehicles(Integer minPrice, Integer maxPrice, String make, String model, Integer minYear, Integer maxYear, String color, Integer minMiles, Integer maxMiles, String type) {
-        return List.of();
     }
 
     private Vehicle mapRowToVehicle(ResultSet rs) throws SQLException {

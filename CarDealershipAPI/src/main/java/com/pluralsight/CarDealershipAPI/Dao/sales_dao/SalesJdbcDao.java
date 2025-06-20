@@ -4,6 +4,7 @@ import com.pluralsight.CarDealershipAPI.Config.DatabaseConfig;
 import com.pluralsight.CarDealershipAPI.Models.SalesContract;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Primary
 @Component
 public class SalesJdbcDao implements SalesDao {
 
